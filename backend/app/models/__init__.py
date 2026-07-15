@@ -1,3 +1,5 @@
-﻿from app.models.difficulty import Difficulty
+﻿# SQLAlchemy models are imported here for Alembic discovery.
 
-__all__ = ["Difficulty"]
+from app.models.user import User
+
+__all__ = ["User"]
