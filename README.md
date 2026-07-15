@@ -1,6 +1,6 @@
 # Gymora
 
-
+A RAG-enhanced workout tracking and exercise discovery platform.
 
 ## Getting started
 
