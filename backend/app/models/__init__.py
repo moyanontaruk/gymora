@@ -8,4 +8,5 @@ from app.models.muscle_group import MuscleGroup
 __all__ = [
     "User",
     "Equipment",
-    "MuscleGroup"]
+    "MuscleGroup",
+    "Exercise"]
