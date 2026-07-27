@@ -59,7 +59,7 @@ def get_equipment(equipment_id: int, db: Session = Depends(get_db)):
     
     #get 1 row by it's PK, return the matching Equip.
     #db.get() then None... basically every entity will follow the same pattern
-        #it's like saying fetch it when it's the same and vail if the item does not exist
+        #it's like saying fetch it when it's the same and fail if the item does not exist
     equipment = db.get(Equipment, equipment_id)
     if equipment is None:
         raise HTTPException(
