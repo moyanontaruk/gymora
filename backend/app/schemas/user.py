@@ -22,3 +22,15 @@ class UserRead (BaseModel):
     created_at: datetime
 
     model_config = ConfigDict(from_attributes=True)
+
+
+class Token(BaseModel):
+    access_token: str
+
+    #whoever has this token, grant access
+    token_type: str = "bearer"
+
+
+class UserLogin(BaseModel):
+    email: EmailStr
+    password: str

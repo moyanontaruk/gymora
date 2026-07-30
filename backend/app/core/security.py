@@ -65,3 +65,33 @@ def create_access_token(user_id:int) -> str:
         algorithm=settings.jwt_algorithm,
     )
     return token
+
+
+
+
+#----- valid token -> user id; anything wrong -> None
+#take token str, return user ID(int) if token is valid
+    #int | None = saying could be int userid or None
+def decode_access_token(token: str) -> int | None:
+    try:
+
+        #where forgery is caught. if token was tampered, signed w/ different key, expired...
+            #then jwt.decord will raise error
+        payload =jwt.decode(
+            token,
+            settings.jwt_secret_key,
+            algorithms=[settings.jwt_algorithm],
+        )
+
+        #payload.get(...) will get user id stored when creating the token
+           #.get(..) safely returns None if missing instead of crashing
+        user_id = payload.get("sub")
+        if user_id is None:
+            return None
+
+        #change "sub" user_id from str back to int
+        return int(user_id)
+
+    #safey net. jwt.decode will raise PyJWKError for any issues
+    except jwt.PyJWKError:
+        return None
