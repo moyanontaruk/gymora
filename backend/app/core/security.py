@@ -92,6 +92,6 @@ def decode_access_token(token: str) -> int | None:
         #change "sub" user_id from str back to int
         return int(user_id)
 
-    #safey net. jwt.decode will raise PyJWKError for any issues
-    except jwt.PyJWKError:
+    #safey net. jwt.decode will raise PyJWTError for any issues
+    except jwt.PyJWTError:
         return None

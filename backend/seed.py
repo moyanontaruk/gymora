@@ -16,8 +16,8 @@ MUSCLE_GROUPS = ["Chest",
                  "Calves", 
                  "Core"]
 
-EQUIPMENT = ["Barbel",
-             "Dumbell",
+EQUIPMENT = ["Barbell",
+             "Dumbbell",
              "Kettlebell",
              "Cable Machine",
              "Resistance Band",

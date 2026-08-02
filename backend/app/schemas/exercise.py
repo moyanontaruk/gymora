@@ -1,6 +1,9 @@
 from datetime import datetime
 from pydantic import BaseModel, ConfigDict
 
+from app.schemas.muscle_group import MuscleGroupRead
+from app.schemas.equipment import EquipmentRead
+
 class ExerciseBase(BaseModel):
     name: str
     description: str | None = None
@@ -11,7 +14,7 @@ class ExerciseBase(BaseModel):
     source_external_id: str | None = None
     media_url: str | None = None
     is_active: bool = True
-    created_by_user_id: int | None = None
+
 
 class ExerciseCreate(ExerciseBase):
     pass
@@ -19,12 +22,18 @@ class ExerciseCreate(ExerciseBase):
 class ExerciseRead(ExerciseBase):
     exercise_id: int
     created_at: datetime
-    update_at: datetime | None = None
+    updated_at: datetime | None = None
+    created_by_user_id: int | None = None
+
+    muscle_groups:list[MuscleGroupRead] = []
+    equipment:list[EquipmentRead] = []
 
 
+#need this line for pydantic to go into exercise object, pull out whatevr & turns into clean JSON
+#w/o this line, it was throw an error
     model_config = ConfigDict(from_attributes=True)
 
-class ExerciseUpate(BaseModel):
+class ExerciseUpdate(BaseModel):
     name: str
     description: str | None = None
     instructions: str | None = None
@@ -34,4 +43,3 @@ class ExerciseUpate(BaseModel):
     source_external_id: str | None = None
     media_url: str | None = None
     is_active: bool = True
-    created_by_user_id: int | None = None

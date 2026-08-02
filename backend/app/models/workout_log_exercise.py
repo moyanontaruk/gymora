@@ -1,5 +1,5 @@
 from app.database import Base
-from sqlalchemy.orm import Mapped, mapped_column
+from sqlalchemy.orm import Mapped, mapped_column, relationship
 from sqlalchemy import ForeignKey, Numeric, Text
 
 
@@ -15,3 +15,7 @@ class WorkoutLogExercise(Base):
     duration_minutes: Mapped[int | None] = mapped_column(nullable=True)
     exercise_order: Mapped[int | None] = mapped_column(nullable=True)
     notes: Mapped[str | None] = mapped_column(Text, nullable=True)
+
+    #the other direction. each exercise row belongs to exactly 1 workout
+        #back_populates values are crossed pair, names the other class (WorkoutLog) attribute
+    workout_log: Mapped["WorkoutLog"] = relationship(back_populates="exercises")
