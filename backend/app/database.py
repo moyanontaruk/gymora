@@ -40,8 +40,8 @@ def get_db():
     #create 1 db session and store it
     database = SessionLocal()
     try:
-        #give db session to fastapi temporarily
+        #give db session to fastapi temporarily/hand the open session to endpoint
         yield database
     finally:
-        #close db session/release connection
+        #close db session/release connection, even if errors
         database.close()

@@ -3,7 +3,6 @@ from sqlalchemy.orm import Mapped, mapped_column
 
 from app.database import Base
 
-
 #note to self
 #SQLAlchemy String(100) → PostgreSQL VARCHAR(100) → Python str
 #SQLAlchemy Text        → PostgreSQL TEXT         → Python str
