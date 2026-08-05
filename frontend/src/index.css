@@ -1,111 +1,123 @@
+/* CSS comments look like this. */
+
+/* --> playfair display front loaded from google fonts
+-- > @import has to be first before other rules
+--> wght@... only download the selected weight, not all
+      ( it's semi + bold weights for this)*/
+
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&display=swap');
+
+
+
+/* :root = the whole document. Used here to declare reusable values */
 :root {
-  --text: #6b6375;
-  --text-h: #08060d;
-  --bg: #fff;
-  --border: #e5e4e7;
-  --code-bg: #f4f3ec;
-  --accent: #aa3bff;
-  --accent-bg: rgba(170, 59, 255, 0.1);
-  --accent-border: rgba(170, 59, 255, 0.5);
-  --social-bg: rgba(244, 243, 236, 0.5);
-  --shadow:
-    rgba(0, 0, 0, 0.1) 0 10px 15px -3px, rgba(0, 0, 0, 0.05) 0 4px 6px -2px;
+  /* these are CSS custom properties, or "variables"
+  the double dash is required, it's how CSS knows it's mine
+  defining them once means changing a colour changes it everywhere */
 
-  --sans: system-ui, 'Segoe UI', Roboto, sans-serif;
-  --heading: system-ui, 'Segoe UI', Roboto, sans-serif;
-  --mono: ui-monospace, Consolas, monospace;
+/* the -- are mandatory, syntax that marks it as my own rather then buillt-in property*/
+/*found color combo inspo from pinterest*/
+  --royal-blue: #112250;
+  --sapphire: #3c507d;
+  --quicksand: #ceac68;
+  --swan-wing: #f5f0e9;
+  --shellstone: #d9cbc2;
 
-  font: 18px/145% var(--sans);
-  letter-spacing: 0.18px;
-  color-scheme: light dark;
-  color: var(--text);
-  background: var(--bg);
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  /*selected colors above and now these are what the colors will do*/
+  /*again, this is at the root so if i wanted to change colors elsewhere later, 
+        i can just change it here and it'll change it everywhere*/
+  --bg: var(--royal-blue);
+  --surface: var(--sapphire);
+  --text: var(--swan-wing);
+  --text-muted: var(--shellstone);
+  --accent: var(--quicksand);
 
-  @media (max-width: 1024px) {
-    font-size: 16px;
-  }
+  /*the hex converted to decimal. looked up on google "hex to rgb
+  this is for --quicksand: #e0c58f;*/
+  --border: rgba(224, 197, 143, 0.25);
+
+/*font*/
+--font-heading: 'Playfair Display', Georgia, serif;
+--font-body: system-ui, 'Segoe UI', Roboto, sans-serif;
+
+
+/*spacing*/
+  --space-xs: 4px;
+  --space-sm: 8px;
+  --space-md: 16px;
+  --space-lg: 24px;
+  --space-xl: 40px;
+
+/*corners
+fun little thng from mdn.org*/
+  --radius: 50% 20% / 10% 40%;;
+  --radius-lg: 50% 20% / 10% 40%;;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --text: #9ca3af;
-    --text-h: #f3f4f6;
-    --bg: #16171d;
-    --border: #2e303a;
-    --code-bg: #1f2028;
-    --accent: #c084fc;
-    --accent-bg: rgba(192, 132, 252, 0.15);
-    --accent-border: rgba(192, 132, 252, 0.5);
-    --social-bg: rgba(47, 48, 58, 0.5);
-    --shadow:
-      rgba(0, 0, 0, 0.4) 0 10px 15px -3px, rgba(0, 0, 0, 0.25) 0 4px 6px -2px;
-  }
 
-  #social .button-icon {
-    filter: invert(1) brightness(2);
-  }
-}
 
-body {
-  margin: 0;
-}
 
-#root {
-  width: 1126px;
-  max-width: 100%;
-  margin: 0 auto;
-  text-align: center;
-  border-inline: 1px solid var(--border);
-  min-height: 100svh;
-  display: flex;
-  flex-direction: column;
+
+
+/* the asterisk symbol * = the universal selector. matches every element on the page */
+* {
+  /* by default, adding padding makes an element BIGGER than its set width
+  border-box makes padding count INSIDE the width instead of adding to it.
+  nearly everyone sets this, it makes sizing behave sensibly */
   box-sizing: border-box;
 }
 
-h1,
-h2 {
-  font-family: var(--heading);
-  font-weight: 500;
-  color: var(--text-h);
-}
-
-h1 {
-  font-size: 56px;
-  letter-spacing: -1.68px;
-  margin: 32px 0;
-  @media (max-width: 1024px) {
-    font-size: 36px;
-    margin: 20px 0;
-  }
-}
-h2 {
-  font-size: 24px;
-  line-height: 118%;
-  letter-spacing: -0.24px;
-  margin: 0 0 8px;
-  @media (max-width: 1024px) {
-    font-size: 20px;
-  }
-}
-p {
+/* body = the whole visible page */
+body {
+  /* browsers add a default margin around the page and this will remove the gap around the page edge */
   margin: 0;
+
+  /* font-family takes a list. the browser uses the first one it has
+  system-ui means "whatever this operating system normally uses" 
+  .. already set above so add the variable name in...*/
+  font-family: var(--font-body);
+
+  /* 1.6 = line height. lines sit 1.6x the font size apart.
+  a plain number here means "relative to this element's font size" */
+  line-height: 1.6;
+
+  /* var() reads one of the values declared in :root above */
+  color: var(--text);
+  background: var(--bg);
 }
 
-code,
-.counter {
-  font-family: var(--mono);
-  display: inline-flex;
-  border-radius: 4px;
-  color: var(--text-h);
+
+h1, h2, h3 {
+  font-family: var(--font-heading);
+  
+  /*how thick the bolding i want*/
+  font-weight: 700;
+  margin:0;
+  letter-spacing: -0.5px;
 }
 
-code {
-  font-size: 15px;
-  line-height: 135%;
-  padding: 4px 8px;
-  background: var(--code-bg);
+/*a = everylink*/
+a {
+  color: var(--accent);
+
+  /*removing the default underline*/
+  text-decoration: none;
+}
+
+/*:hover = only while the mouse HOVER over it..duh*/
+a:hover {
+  text-decoration: underline;
+}
+
+
+
+
+
+
+/* #root targets the element with id="root", where React renders
+the # means "match by id" */
+#root {
+  /* vh = viewport height. 100vh = full height of the browser window
+  min-height rather than height, so it can grow past one screen meaning users can scroll */
+  min-height: 100vh;
 }

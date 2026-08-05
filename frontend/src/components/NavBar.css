@@ -1,0 +1,70 @@
+/* .navbar ... matches className="navbar" in the jsx
+   the DOT is required... it means "match by class"
+   (# means match by id, no symbol means match by tag name) */
+.navbar {
+
+  /* flex ==it turns this element into a row,
+     and its children line up side by side instead of stacking */
+  display: flex;
+
+  /* space-between== pushes the first child to the far left, the last to the far right, gap in the middle.
+    this is what puts the logo left and links right */
+  justify-content: space-between;
+
+  /* center lines children up vertically in the middle
+    so the logo and links sit on the same line rather than top-aligned */
+  align-items: center;
+
+  /* two values = vertical then horizontal. so 16px top and bottom,
+     40px left and right. using the scale defined in index.css */
+  padding: var(--space-md) var(--space-xl);
+
+  /* 1px = thinnest visible line
+    solid but alternatives: dashed, dotted
+    separates the bar from the page below it */
+  border-bottom: 1px solid var(--border);
+}
+
+
+.navbar-logo {
+  /* 1rem = the browser's base font size, normally 16px
+    rem is preferred over px because it scales
+    if a user has increased their browser font size (accessibility) */
+  font-size: 1.5rem;
+
+  font-weight: 700;
+
+  /*spreads the letters apart*/
+  letter-spacing: 3px;
+
+  color: var(--text);
+}
+
+
+.navbar-links {
+  /* flex again, so the links sit in a row */
+  display: flex;
+
+  /* gap = space b/w children only, not around the outside.*/
+  gap: var(--space-lg);
+}
+
+
+/* .navbar-links a = an element with class navbar-links, AND an <a> inside it
+   the SPACE between them is REQUIRED and means "inside"
+   so this only styles links in the nav, not links elsewhere on the page */
+.navbar-links a {
+  color: var(--text);
+
+  /* px here (not rem) because it's a small decorative gap, not text size */
+  padding-bottom: 4px;
+}
+
+
+.navbar-links a:hover {
+  color: var(--accent);
+
+  /* underline in accent colour instead of the browser's default */
+  text-decoration: none;
+  border-bottom: 2px solid var(--accent);
+}

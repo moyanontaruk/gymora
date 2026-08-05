@@ -1,0 +1,134 @@
+.hero {
+  /*two values = vertical then horizontal.
+  so 40px top and bottom, 40px left and right.
+  using the --space-xl I defined in index.css */
+  padding: var(--space-xl);
+
+  /*1100px stops text stretching the full width of a wide monitor, 
+  that would be hard to read. */
+  max-width: 1100px;
+
+  /* auto = tells browser to split the leftover space
+  with 0 top/bottom and auto left/right, this centres the block */
+  margin: 0 auto;
+}
+
+
+.hero-title {
+  /* clamp() -- headline scales w/ the window (with a floor & ceiling)
+        so it never gets too small or large.
+        takes 3 values: minimum, preferred, maximum.
+  vw = 1% of the window WIDTH, so 5vw grows with the window.
+  result: never smaller than 2.5rem, never bigger than 4.5rem.
+    ->responsive text, part of NFR1 */
+  font-size: clamp(2.5rem, 5vw, 4.5rem);
+
+  color: var(--accent);
+  line-height: 1;
+}
+
+.hero-text {
+  /*4 values would be top/right/bottom/left. 2 values = vertical/horizontal.
+  pushing the paragraph away from the buttons below
+  how closely the title/text are
+  0 top and --space-md (16px) bottom*/
+  margin:var(--space-md) 0;
+
+  font-size: 1.3rem;
+  color: var(--text-muted);
+  max-width: 710px;
+}
+
+.hero-buttons {
+  /* flex = REQUIRED keyword. children sit side by side in a row */
+  display: flex;
+
+  /* gap = space BETWEEN children, not around the outside */
+  gap: var(--space-md);
+
+  /* wrap =if the row is too narrow for both buttons,
+  the second drops onto a new line instead of squashing.*/
+  flex-wrap: wrap;
+  margin-bottom: var(--space-xl);
+}
+
+
+/*.btn = shared by BOTH buttons, so I write the common parts once instead of twice */
+.btn {
+  /* inline-block = REQUIRED keyword. links are normally "inline",
+     which ignores padding top and bottom. inline-block makes
+     padding work properly while still sitting in a row */
+  display: inline-block;
+
+  /*button size/shape */
+  padding: 10px 25px;
+
+  /* rounded corners, using the value from index.css */
+  border-radius: var(--radius);
+  font-weight: 600;
+
+  /*removes the unline when you hover over links*/
+  text-decoration: none;
+}
+
+
+/* the FILLED button. gold background, dark text */
+.btn-solid {
+  background: var(--accent);
+  color: var(--royal-blue);
+  border: 5px solid transparent;
+}
+
+/* the OUTLINE button. see-through with a gold edge */
+.btn-outline {
+  /* transparent so the page background shows through */
+  background: transparent;
+  color: var(--accent);
+  border: 5px solid var(--accent);
+}
+.btn-solid:hover {
+  background: var(--swan-wing);
+  text-decoration: none;
+}
+.btn-outline:hover {
+  background: var(--accent);
+  color: var(--bg);
+  text-decoration: none;
+}
+
+
+.cards {
+  /* grid=like flex, but for rows AND columns at once */
+  display: grid;
+
+  /*reads as..make as many columns as fit, each at least 220px wide,
+  each sharing the leftover space equally (1fr).
+  fr = "fraction of the free space".*/
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: var(--space-md);
+}
+
+
+.card {
+  background: var(--surface);
+  padding: var(--space-lg);
+  border-radius: var(--radius-lg);
+  border: 5px solid var(--border);
+}
+
+/* .card h3 = an h3 INSIDE an element with class card.
+   the SPACE is REQUIRED and means "inside".
+   so this only affects headings in cards, not h3 elsewhere */
+.card h3 {
+  color: var(--accent);
+  margin-bottom: var(--space-sm);
+}
+
+.card p {
+  margin: 0;
+  color: var(--text-muted);
+
+  /* 0.95rem =smaller than body text.
+  card descriptions are supporting detail, not main content */
+  font-size: .95rem;
+}
