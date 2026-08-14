@@ -32,6 +32,12 @@ class Settings(BaseSettings):
     jwt_algorithm: str ="HS256"
     jwt_access_token_expire_minutes:int =30
 
+    #groq so assistant can call LLM
+    groq_api_key: str
+    groq_model: str = "llama-3.3-70b-versatile"
+
+    #how many days of history should be sent to assistant
+    assistant_history_days: int = 30
 
     model_config= SettingsConfigDict(
         env_file=ENV_FILE,

@@ -99,7 +99,8 @@ def list_workout_logs(
         .where(WorkoutLog.user_id == current_user.user_id)
 
         #fetch all the child rows in ONE extra query instead of one per workout
-        .options(selectinload(WorkoutLog.exercises))
+        .options(selectinload(WorkoutLog.exercises)
+            .selectinload(WorkoutLogExercise.exercise))
 
         #newest workout first, matching WF
         .order_by(WorkoutLog.workout_date.desc())
