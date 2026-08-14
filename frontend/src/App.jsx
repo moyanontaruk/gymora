@@ -1,34 +1,16 @@
-//  <App />        {/* my component, the function I wrote */}
-//  <app />        {/* a HTML tag called "app" — doesn't exist, silently renders nothing */}
-
-
-
-
-// function App(){
-//   return (
-//     <div>
-//       <h1>Gymora</h1>
-//       <p>Frontend is running.</p>
-//       </div>
-//   )
-// }
-
-// export default App
-
-
-
-
-
-
 // importing named things from a package
 // the curly braces mean "pick these specific items out of the package"
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 
 // importing my own file. the ./ means "in a folder next to this one"
 import Home from './pages/Home.jsx'
-
 import NavBar from './components/NavBar.jsx'
 import Exercises from './pages/Exercises.jsx'
+import Login from './pages/Login.jsx'
+import Register from './pages/Register.jsx'
+import Workouts from './pages/Workouts.jsx'
+import ProtectedRoute from './components/ProtectedRoute.jsx'
+import LogWorkout from './pages/LogWorkout.jsx'
 
 function App() {
   return (
@@ -41,12 +23,25 @@ function App() {
       {/* Routes = the list of possibilities. only ONE will match and render */}
       <Routes>
 
-        {/* path = the URL. element = what to show for it */}
-        <Route path="/" element={<Home />} />
+      {/* path = the URL. element = what to show for it */}
+      <Route path="/" element={<Home />} />
 
       <Route path="/exercises" element={<Exercises />} />
 
-    
+      <Route path="/login" element={<Login />} />
+      <Route path="/register" element={<Register />} />
+
+      <Route path="/workouts" element={
+        <ProtectedRoute>
+          <Workouts />
+        </ProtectedRoute>}/>
+
+      <Route path="/workouts/new" element={
+        <ProtectedRoute>
+          <LogWorkout />
+        </ProtectedRoute>}/>
+
+
       </Routes>
     </BrowserRouter>
   )

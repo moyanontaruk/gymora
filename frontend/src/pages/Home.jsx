@@ -41,25 +41,25 @@ function Home() {
         {/* h3 not h2, b/c these sit below
             the h1 in importance. heading levels should describe
             structure, not size */}
-        <div className="card">
-          <h3>Workouts</h3>
+        <Link to="/workouts"className="card">
+          <h3>Workout History</h3>
           <p>Structured sessions to reach your goals.</p>
-        </div>
+        </Link>
 
-        <div className="card">
+        <Link to="/routines" className="card">
           <h3>Routines</h3>
           <p>Follow or build routines that fit your life.</p>
-        </div>
+        </Link>
 
-        <div className="card">
+        <Link to="/exercises" className="card">
           <h3>Exercises</h3>
           <p>Browse exercises with step by step guides.</p>
-        </div>
+        </Link>
 
-        <div className="card">
+        <Link to="/equipment" className="card">
           <h3>Equipment</h3>
           <p>Explore exercises by machines and free weights.</p>
-        </div>
+        </Link>
       </div>
     </section>
   )

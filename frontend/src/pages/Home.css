@@ -114,6 +114,10 @@
   padding: var(--space-lg);
   border-radius: var(--radius-lg);
   border: 5px solid var(--border);
+
+  color:inherit;
+  text-decoration: none;
+  display: block;
 }
 
 /* .card h3 = an h3 INSIDE an element with class card.
@@ -131,4 +135,19 @@
   /* 0.95rem =smaller than body text.
   card descriptions are supporting detail, not main content */
   font-size: .95rem;
+}
+
+/*.card:hover is like the a:hover rule in index.css..
+and comes later, so this one wins. removes the underline from the whole card
+and adds a gold edge so it still looks clickable */
+.card:hover {
+  text-decoration: none;
+  border-color: var(--accent);
+}
+
+/* underline back on just the heading.
+the SPACE between .card:hover and h3 means "an h3 inside a
+   hovered card" to keep the description <p> stays clean */
+.card:hover h3 {
+  text-decoration: underline;
 }
