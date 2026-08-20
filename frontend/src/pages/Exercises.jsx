@@ -27,108 +27,229 @@ function Exercises() {
   //null = nothing wrong yet
   const [error, setError] = useState(null)
 
+  //--- the dropdown options, fetched once ---
+  const [muscleGroups, setMuscleGroups] = useState([])
+  const [equipmentList, setEquipmentList] = useState([])
 
-  // useEffect =runs code AFTER the component appears on screen. 
-      //his is where you fetch data.
-  // it takes 2 arguments: a function, and a list
+
+  //--- the filter values. '' means "no filter" ---
+  const [search, setSearch] = useState('')
+  const [muscleGroup, setMuscleGroup] = useState('')
+  const [equipment, setEquipment] = useState('')
+  const [difficulty, setDifficulty] = useState('')
+
+
+
+    //load the dropdown options ONCE. these don't change,
+        //so this useEffect keeps its empty []
   useEffect(() => {
+      async function loadOptions() {
+          try {
+              const groups = await apiGet('/muscle-groups/')
+              setMuscleGroups(groups)
 
-    //async because it has to wait for the network
-    async function loadExercises() {
-
-      try {
-        // await =pause here until the api replies
-        //limit=xx so the first version stays small
-        const data = await apiGet('/exercises/?limit=20')
-
-        // hand the result to react and this redraws the page
-        setExercises(data)
+              const equipment = await apiGet('/equipment/')
+              setEquipmentList(equipment)
+          }
+          catch (err) {
+              //not fatal. the exercise list still works without
+                  //the dropdowns being populated
+              console.error('Could not load filter options')
+          }
       }
-      catch (err) {
-        setError(err.message)
-      }
-      // finally = runs whether it worked or failed...like python's finally
-      finally {
-        setLoading(false)
-      }
-    }
 
-    // defining the function above doesn't RUN it. this line runs it
-    loadExercises()
-
-  // the [ ] at the end is the "dependency list". 
-      //EMPTY means "run this once, when the component first appears". 
-          //leave it out entirely and it runs after EVERY redraw, 
-              // which here would be an infinite loop of api calls
+      loadOptions()
   }, [])
 
 
+  //load the exercises. THIS one re-runs whenever a filter changes
+  useEffect(() => {
+
+    async function loadExercises() {
+      setLoading(true)
+
+      try {
+        //URLSearchParams builds the ?a=1&b=2 part of a url
+          //and handles escaping, so a search for "pull-up"
+          //or a name with a space doesn't break the url
+        const params = new URLSearchParams()
+
+        params.append('limit', '500')
+
+        //only add a filter if the user actually chose one.
+          //sending muscle_group='' would match nothing
+        if (search) {
+          params.append('search', search)
+        }
+
+        if (muscleGroup) {
+          params.append('muscle_group', muscleGroup)
+        }
+
+        if (equipment) {
+          params.append('equipment', equipment)
+        }
+
+        if (difficulty) {
+          params.append('difficulty_level', difficulty)
+        }
+
+        //.toString() turns it into "limit=100&search=press"
+        const data = await apiGet('/exercises/?' + params.toString())
+
+        setExercises(data)
+        setError(null)
+      }
+      catch (err) {
+          setError(err.message)
+      }
+      finally {
+          setLoading(false)
+        }
+    }
+
+    loadExercises()
+
+  //THE NEW IDEA. this array is NOT empty.
+      //react re-runs the effect whenever ANY of these values change.
+      //so picking a muscle group refetches with that filter applied.
+      //leaving the array out entirely would loop forever, because
+      //the fetch causes a redraw which would trigger the effect again
+  }, [search, muscleGroup, equipment, difficulty])
 
 
-
-  
-
-  // an early return. if still loading, show this and stop here.
-  //   nothing below runs
-  if (loading) {
-    return <p className="status">Loading exercises...</p>
-  }
-
-  if (error) {
-    // { } inside jsx = "this is a javascript value, not text".
-    //   without braces it would literally print the word "error"
-    return <p className="status">Could not load exercises: {error}</p>
+  //clears everything at once
+  function clearFilters() {
+    setSearch('')
+    setMuscleGroup('')
+    setEquipment('')
+    setDifficulty('')
   }
 
 
   return (
     <section className="exercise-page">
+
       <h1>Exercise Library</h1>
 
-      {/* {exercises.length} inserts the number of items in the list.
-          .length is a REQUIRED property of javascript arrays */}
+      <div className="filters">
+
+        <div className="filter-field">
+          <label htmlFor="search">Search</label>
+          <input
+            id="search"
+            type="text"
+            placeholder="e.g. press"
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+          />
+        </div>
+
+        <div className="filter-field">
+          <label htmlFor="muscle">Muscle group</label>
+          <select
+            id="muscle"
+            value={muscleGroup}
+            onChange={(e) => setMuscleGroup(e.target.value)}
+          >
+          {/*value="" is the "no filter" option*/}
+          <option value="">All muscle groups</option>
+
+          {muscleGroups.map((mg) => {
+            return (
+              <option key={mg.muscle_group_id} value={mg.name}>
+                {mg.name}
+              </option>
+              )
+            })}
+          </select>
+        </div>
+
+        <div className="filter-field">
+          <label htmlFor="equipment">Equipment</label>
+          <select
+            id="equipment"
+            value={equipment}
+            onChange={(e) => setEquipment(e.target.value)}
+          >
+            <option value="">All equipment</option>
+
+            {equipmentList.map((eq) => {
+                return (
+                  <option key={eq.equipment_id} value={eq.name}>
+                    {eq.name}
+                  </option>
+                )
+              })}
+          </select>
+        </div>
+
+        <div className="filter-field">
+            <label htmlFor="difficulty">Difficulty</label>
+            {/*these three are typed by hand because difficulty
+            is a plain text column with no lookup table.
+            the values must match what's stored, lowercase*/}
+            <select
+              id="difficulty"
+              value={difficulty}
+              onChange={(e) => setDifficulty(e.target.value)}
+            >
+              <option value="">Any difficulty</option>
+              <option value="beginner">Beginner</option>
+              <option value="intermediate">Intermediate</option>
+              <option value="advanced">Advanced</option>
+            </select>
+        </div>
+
+        <button type="button" className="btn btn-outline" onClick={clearFilters}>
+          Clear
+        </button>
+      </div>
+
+
+    {error && <div className="auth-error">{error}</div>}
+
+    {loading && <p className="status">Loading exercises...</p>}
+
+    {/*&& with a comparison. only show the count when
+    loading has finished*/}
+    {!loading && (
       <p className="count">{exercises.length} exercises found</p>
+    )}
+
+    {/*the "nothing matched" state. easy to hit once someone
+    combines two filters, so it needs a real message*/}
+    {!loading && exercises.length === 0 && (
+      <div className="empty-state">
+        <p>No exercises match those filters.</p>
+      </div>
+    )}
 
       <div className="exercise-grid">
+        {exercises.map((ex) => {
+          return (
+            <div className="exercise-card" key={ex.exercise_id}>
 
-        {/* .map() is a REQUIRED javascript array method. it goes through
-            every item and returns a new list - here, one card per exercise.
-            this is how react renders a list. closest python equivalent is
-            a list comprehension: [make_card(ex) for ex in exercises]
+              <h3>{ex.name}</h3>
 
-            (ex) => ( ... ) is an "arrow function", javascript shorthand
-            for a function. ex is MY CHOICE of name for each item */}
-        {exercises.map((ex) => (
+              <div className="tags">
+                {ex.muscle_groups.map((mg) => {
+                  return (
+                    <span className="tag" key={mg.muscle_group_id}>
+                      {mg.name}
+                    </span>
+                  )
+              })}
 
-          // key is a REQUIRED react prop when rendering a list. react uses
-          //   it to tell items apart. it must be UNIQUE - the database id
-          //   is perfect. leave it out and react warns in the console
-          <div className="exercise-card" key={ex.exercise_id}>
-
-            {/* {ex.name} reads the name field off this exercise.
-                these field names come straight from your ExerciseRead
-                schema - name, description, muscle_groups, difficulty_level */}
-            <h3>{ex.name}</h3>
-
-            <div className="tags">
-              {/* a list INSIDE a list. each exercise has several muscle
-                  groups, so map over those too */}
-              {ex.muscle_groups.map((mg) => (
-                <span className="tag" key={mg.muscle_group_id}>
-                  {mg.name}
+              {ex.difficulty_level && (
+                <span className="tag tag-difficulty">
+                  {ex.difficulty_level}
                 </span>
-              ))}
+                )}
+              </div>
             </div>
-
-            {/* && is REQUIRED javascript, meaning AND. used here as a
-                shortcut: "if difficulty_level exists, show the span".
-                if it's null, nothing renders. needed because your wger
-                imports have no difficulty set */}
-            {ex.difficulty_level && (
-              <span className="tag tag-difficulty">{ex.difficulty_level}</span>
-            )}
-          </div>
-        ))}
+          )
+        })}
       </div>
     </section>
   )

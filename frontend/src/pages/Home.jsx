@@ -9,16 +9,18 @@ function Home() {
   return (
     <section className="hero">
       <h1 className="hero-title">
-      insert logo xxxx one workout at a time.
+      Repping with reason
           {/* br is a line break and it's self closing so slash is needed*/}
       <br />
-      xxxxxRepping with reason... one workout at a time.
+      <br />
+      Track. Train. Transform
       </h1>
 
+
       <p className="hero-text">
-        xxxxxxxxBuild confidence in the gym, one workout at a time. Explore exercises, equipment and workout designed to help you start strong.
-         <br />
-        Step by step.
+        Gasdfkjaskdfa
+        <br />
+         xxxxx
       </p>
 
 

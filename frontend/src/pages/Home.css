@@ -53,48 +53,7 @@
 }
 
 
-/*.btn = shared by BOTH buttons, so I write the common parts once instead of twice */
-.btn {
-  /* inline-block = REQUIRED keyword. links are normally "inline",
-     which ignores padding top and bottom. inline-block makes
-     padding work properly while still sitting in a row */
-  display: inline-block;
 
-  /*button size/shape */
-  padding: 10px 25px;
-
-  /* rounded corners, using the value from index.css */
-  border-radius: var(--radius);
-  font-weight: 600;
-
-  /*removes the unline when you hover over links*/
-  text-decoration: none;
-}
-
-
-/* the FILLED button. gold background, dark text */
-.btn-solid {
-  background: var(--accent);
-  color: var(--royal-blue);
-  border: 5px solid transparent;
-}
-
-/* the OUTLINE button. see-through with a gold edge */
-.btn-outline {
-  /* transparent so the page background shows through */
-  background: transparent;
-  color: var(--accent);
-  border: 5px solid var(--accent);
-}
-.btn-solid:hover {
-  background: var(--swan-wing);
-  text-decoration: none;
-}
-.btn-outline:hover {
-  background: var(--accent);
-  color: var(--bg);
-  text-decoration: none;
-}
 
 
 .cards {

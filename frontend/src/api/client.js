@@ -229,8 +229,8 @@ export async function apiPostAuth(path, body) {
 
 
 //loads old questions/answers so chat isn't empty 
-export async function getAssistantMessage() {
-  return apiGetAuth('/assisstant/message')
+export async function getAssistantMessages() {
+  return apiGetAuth('/assistant/messages')
 }
 
 export async function  askAssistant(question) {
@@ -238,3 +238,5 @@ export async function  askAssistant(question) {
   //key name "question" b/c it must match the AssisantAsk Schema on backend
   return apiPostAuth('/assistant/ask',{question})
 }
+
+

@@ -11,6 +11,7 @@ import Register from './pages/Register.jsx'
 import Workouts from './pages/Workouts.jsx'
 import ProtectedRoute from './components/ProtectedRoute.jsx'
 import LogWorkout from './pages/LogWorkout.jsx'
+import Assistant from './pages/Assistant.jsx'
 
 function App() {
   return (
@@ -39,6 +40,11 @@ function App() {
       <Route path="/workouts/new" element={
         <ProtectedRoute>
           <LogWorkout />
+        </ProtectedRoute>}/>
+
+      <Route path ="/assistant" element={
+        <ProtectedRoute>
+          <Assistant />
         </ProtectedRoute>}/>
 
 

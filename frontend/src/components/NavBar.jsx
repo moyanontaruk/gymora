@@ -12,7 +12,7 @@ import './NavBar.css'
 function NavBar() {
   //taking only these 2 out of the object the provider shares
   const{ isLoggedIn, logout} = useAuth()
-  const navigate = useNavigate
+  const navigate = useNavigate()
 
   function handleLogout() {
     logout()
@@ -26,12 +26,16 @@ function NavBar() {
     // useful for screen readers, which matters for NFR5
     <nav className="navbar">
 
-        <Link to="/" className="navbar-logo">GYMORA</Link>
+        <Link to="/" className="navbar-logo">
+          <img src="/Logo.png" alt="" className="navbar-logo-img" />
+  
+        </Link>
 
         <div className = "navbar-links">
             <Link to="/">Home</Link>
             <Link to="/exercises">Exercises</Link>
             <Link to="/workouts">Workout History</Link>
+            <Link to ="/assistant"> Assistant </Link>
 
         </div>
 

@@ -52,6 +52,14 @@
 fun little thng from mdn.org*/
   --radius: 50% 20% / 10% 40%;;
   --radius-lg: 50% 20% / 10% 40%;;
+
+
+  /*plain rounded corner..for things where the blob shape
+  would make text hard to read (input boxes, chat bubbles).*/
+  --radius-soft: 12px;
+
+/*red for error messages.*/
+  --danger: #e57373;
 }
 
 
@@ -120,4 +128,197 @@ the # means "match by id" */
   /* vh = viewport height. 100vh = full height of the browser window
   min-height rather than height, so it can grow past one screen meaning users can scroll */
   min-height: 100vh;
+}
+
+
+
+
+
+
+
+
+
+
+/* shared stuff */
+
+
+.btn {
+  /* inline-block = links are normally "inline", which ignores padding
+  top and bottom. inline-block makes padding work properly while still sitting in a row */
+  display: inline-block;
+
+  /*button size/shape */
+  padding: 10px 25px;
+
+  border-radius: var(--radius);
+  font-weight: 600;
+
+  /*removes the underline when you hover over links*/
+  text-decoration: none;
+
+  /*buttons made with <button> don't inherit the page font by default
+  ...they use the browser's. 
+  these two lines make a <button> and a <Link className="btn"> look identical */
+  font-family: var(--font-body);
+  font-size: 1rem;
+
+  /* <button> also gets a default browser border
+  ,,,removing it so the two button types match */
+  border: 5px solid transparent;
+
+  /*shows a hand pointer over <button>, which links get automatically but buttons don't */
+  cursor: pointer;
+}
+
+
+/* the filled button. gold background, dark text */
+.btn-solid {
+  background: var(--accent);
+  color: var(--royal-blue);
+  border: 5px solid transparent;
+}
+
+/*outline button. see-thru with a gold edge */
+.btn-outline {
+  /* transparent so the page background shows through */
+  background: transparent;
+  color: var(--accent);
+  border: 5px solid var(--accent);
+}
+.btn-solid:hover {
+  background: var(--swan-wing);
+  text-decoration: none;
+}
+.btn-outline:hover {
+  background: var(--accent);
+  color: var(--bg);
+  text-decoration: none;
+}
+
+
+
+/* when a button is disabled (while a form is submitting)
+:disabled is a pseudo class like :hover, but for the disabled state */
+.btn:disabled {
+  /* opacity 0 =invisible, 1 is solid, 0.5 fades it */
+  opacity: 0.5;
+
+  /* not-allowed shows the crossed-circle cursor */
+  cursor: not-allowed;
+}
+
+
+/*form inputs... used on Login, Register, LogWorkout and Assistant. 
+the comma list means all four element types get the same styling */
+input,
+select,
+textarea {
+  /* block + 100% width makes each field fill its container and sit on its own line, rather than shrinking to fit
+  like whatever screen it's using*/
+  display: block;
+  width: 100%;
+
+  padding: 10px 14px;
+
+  /* radius-soft not radius b/c the blob shape makes a text box hard to read */
+  border-radius: var(--radius-soft);
+
+  border: 1px solid var(--border);
+
+  /*lighter navy so fields stand out from the page */
+  background: var(--surface);
+  color: var(--text);
+
+  /*inputs do NOT inherit the page font by default. 
+  w/o these 2 lines they'd use the browser's default(which looks wrong and ugly) */
+  font-family: var(--font-body);
+  font-size: 1rem;
+
+  margin-bottom: var(--space-md);
+}
+
+
+/* :focus = while the field is selected and being typed in.
+important for accessibility, keyboard users need to see where they are on the page */
+input:focus,
+select:focus,
+textarea:focus {
+
+  /* outline is the ring browsers draw round a focused element.
+  removing the default and replacing it with my own...
+  so it fits the theme. 
+  
+  can't remove it without a replacement b/c it'll break the keyboard navigation */
+  outline: 2px solid var(--accent);
+
+  /* pushes the ring a couple of pixels away from the edge */
+  outline-offset: 2px;
+
+  border-color: var(--accent);
+}
+
+
+/*placeholder = the grey hint text inside an empty field.
+::placeholder = styles a part of an element that isn't a separate tag. 
+  note -- double colon, unlike :hover */
+input::placeholder,
+textarea::placeholder {
+  color: var(--text-muted);
+
+  /* fading it so the hint is clearly not real typed content */
+  opacity: 0.6;
+}
+
+
+/* labels above form fields.*/
+label {
+  display: block;
+  margin-bottom: var(--space-xs);
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+
+/*the "Loading..." message. used by Exercises, Workouts and Assistant */
+.status {
+  padding: var(--space-xl);
+  text-align: center;
+  color: var(--text-muted);
+}
+
+
+/*the error box. used by Login, Register, LogWorkout and Assistant. 
+the class name says "auth" but changes have been made since then so it's used more than just auth now */
+.auth-error {
+  padding: var(--space-sm) var(--space-md);
+  margin-bottom: var(--space-md);
+
+  border-radius: var(--radius-soft);
+
+  /* the red at 15% opacity for the background
+  solid for the text and border...
+  so it reads as an error without being harsh */
+  background: rgba(229, 115, 115, 0.15);
+  border: 1px solid var(--danger);
+  color: var(--danger);
+
+  font-size: 0.95rem;
+}
+
+
+/* sr-only = "screen reader only".
+the element stays in the page for screen readers to announce
+but is moved out of sight. display:none would hide it from screen readers too..
+which defeats the point.... NFR5 */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+
+  /* clip-path crops the element to nothing visible */
+  clip-path: inset(50%);
+
+  /* stops a long label forcing a scrollbar */
+  white-space: nowrap;
 }

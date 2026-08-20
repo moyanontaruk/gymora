@@ -1,0 +1,82 @@
+/* the whole page area behind the card */
+.auth-page {
+  /* flex + these two lines centre the card horizontally AND vertically */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  /* takes the full window height MINUS roughly the navbar height,
+     so the card sits centred in what's left rather than being
+     pushed below the fold. calc() does maths in css */
+  min-height: calc(100vh - 100px);
+
+  padding: var(--space-md);
+}
+
+
+/* the box holding the form. THIS is what stops the inputs
+   stretching across the whole page */
+.auth-card {
+  /* the input width fix. inputs are width:100%, so they fill
+     whatever contains them. this is the container */
+  width: 100%;
+  max-width: 420px;
+
+  background: var(--surface);
+  padding: var(--space-xl);
+
+  /* radius-soft, not the blob shape. a form card holding text
+     boxes needs straight-ish edges to look tidy */
+  border-radius: var(--radius-soft);
+  border: 1px solid var(--border);
+}
+
+
+.auth-card h1 {
+  color: var(--accent);
+  font-size: 1.8rem;
+
+  /* the heading and the subtitle sit close together, so no
+     bottom margin here */
+  margin-bottom: var(--space-xs);
+}
+
+
+.auth-subtitle {
+  color: var(--text-muted);
+  font-size: 0.95rem;
+
+  /* pushes the form away from the intro text */
+  margin: 0 0 var(--space-lg) 0;
+}
+
+
+/* the small grey note under the password field */
+.auth-hint {
+  color: var(--text-muted);
+  font-size: 0.85rem;
+
+  /* negative top margin pulls it UP, closer to the input above it,
+     because the input already has margin-bottom from index.css */
+  margin: -8px 0 var(--space-md) 0;
+}
+
+
+/* the submit button. index.css styles how it LOOKS,
+   this makes it fill the card width like the inputs do */
+.auth-card .btn {
+  width: 100%;
+
+  /* text-align because a full width button would otherwise
+     have its label pushed left */
+  text-align: center;
+}
+
+
+/* the "already have an account?" line at the bottom */
+.auth-footer {
+  margin: var(--space-lg) 0 0 0;
+  text-align: center;
+  font-size: 0.95rem;
+  color: var(--text-muted);
+}
