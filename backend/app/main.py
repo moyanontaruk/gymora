@@ -16,6 +16,8 @@ app.add_middleware(
     #let the browser send the Authorization header with the JWT
     allow_credentials=True,
 
+
+    #GET, POST, PUT, DELETE
     allow_methods=["*"],
     allow_headers=["*"],
 )
