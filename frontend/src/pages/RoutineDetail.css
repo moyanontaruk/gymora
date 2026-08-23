@@ -1,0 +1,151 @@
+.routine-detail-page {
+    max-width: 850px;
+    margin: 0 auto;
+    padding: var(--space-xl) var(--space-md);
+}
+
+
+/*the back link at the top*/
+.back-link {
+    display: inline-block;
+    margin-bottom: var(--space-lg);
+    font-size: 0.95rem;
+}
+
+
+.routine-detail-page h1 {
+    color: var(--accent);
+    margin-bottom: var(--space-md);
+}
+
+
+/*the row of tags under the title*/
+.routine-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-xs);
+    margin-bottom: var(--space-xl);
+}
+
+
+/*.tag is also in Exercises.css and Routines.css. third copy now,
+    worth moving to index.css if there's time*/
+.routine-meta .tag {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 999px;
+
+    background: var(--surface);
+    border: 1px solid var(--border);
+
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    text-transform: capitalize;
+}
+
+
+/*one day of the routine*/
+.day-card {
+    padding: var(--space-lg);
+    margin-bottom: var(--space-md);
+
+    background: var(--surface);
+    border-radius: var(--radius-soft);
+    border: 1px solid var(--border);
+}
+
+
+.day-card h2 {
+    color: var(--accent);
+    font-size: 1.4rem;
+    margin-bottom: var(--space-md);
+
+    /*a line under the day heading, separating it from the exercises*/
+    padding-bottom: var(--space-sm);
+    border-bottom: 1px solid var(--border);
+}
+
+
+.day-exercises {
+    /*strips the bullets and indent browsers add to lists*/
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+
+.day-exercises li {
+    display: flex;
+
+    /*name on the left, sets and reps pushed right*/
+    justify-content: space-between;
+
+    /*flex-start so a two line exercise name doesn't drag the
+        numbers down with it*/
+    align-items: flex-start;
+    gap: var(--space-md);
+
+    /*wrap so the numbers drop below the name on a phone*/
+    flex-wrap: wrap;
+
+    padding: var(--space-md) 0;
+    border-bottom: 1px solid var(--border);
+}
+
+
+/*no line under the last exercise, so the list doesn't end
+    with a stray border*/
+.day-exercises li:last-child {
+    border-bottom: none;
+}
+
+
+/*the left side: name and muscle groups stacked*/
+.exercise-info {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+
+    /*grow to fill, but wrap below 200px*/
+    flex: 1 1 200px;
+}
+
+
+.exercise-name {
+    font-weight: 600;
+}
+
+
+/*the "Chest, Triceps" line under the name*/
+.exercise-muscles {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    text-transform: capitalize;
+}
+
+
+/*the right side: sets, reps and rest stacked*/
+.exercise-numbers {
+    display: flex;
+    flex-direction: column;
+
+    /*flex-end right aligns them, so the numbers form a neat
+        column down the right hand side*/
+    align-items: flex-end;
+    gap: 2px;
+
+    flex-shrink: 0;
+}
+
+
+.detail {
+    font-size: 0.95rem;
+    color: var(--text);
+}
+
+
+.rest {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    opacity: 0.8;
+}

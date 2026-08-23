@@ -1,5 +1,6 @@
 from datetime import date, datetime
 from pydantic import BaseModel, ConfigDict
+from app.schemas.exercise import ExerciseRead
 
 ## bigger than equipment because workout = 2 things
     #1. workout itself (PARENT) 
@@ -31,6 +32,13 @@ class WorkoutLogExerciseCreate(WorkoutLogExerciseBase):
 class WorkoutLogExerciseRead(WorkoutLogExerciseBase):
     workout_log_exercise_id: int
     workout_log_id: int
+
+
+    #full exercise nested inside
+        #so frontend gets the name w/o second request
+        #None as default so it can't if something is missing
+    exercise: ExerciseRead | None = None
+
 
 #need this line for pydantic to go into workout log object, pull out whatevr & turns into clean JSON
 #w/o this line, it was throw an error

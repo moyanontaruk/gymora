@@ -1,7 +1,8 @@
 from app.database import Base
-from sqlalchemy.orm import Mapped, mapped_column
+from sqlalchemy.orm import Mapped, mapped_column, relationship
 from sqlalchemy import Boolean, DateTime, ForeignKey, String, func
 from datetime import datetime
+
 
 class Routine(Base):
     __tablename__ = "routine"
@@ -22,3 +23,7 @@ class Routine(Base):
         nullable=False, 
         server_default=func.now())
     updated_at: Mapped[datetime | None] =mapped_column(DateTime(timezone=True), nullable=True)
+    exercises: Mapped[list["RoutineExercise"]] = relationship(
+        back_populates="routine",
+        cascade="all, delete-orphan",
+        order_by="RoutineExercise.exercise_order",)

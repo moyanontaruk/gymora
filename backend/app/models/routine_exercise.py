@@ -1,5 +1,5 @@
 from app.database import Base
-from sqlalchemy.orm import Mapped, mapped_column
+from sqlalchemy.orm import Mapped, mapped_column, relationship
 from sqlalchemy import ForeignKey, String, Text
 
 
@@ -15,3 +15,7 @@ class RoutineExercise(Base):
     suggested_reps: Mapped[str | None] = mapped_column(String(50), nullable=True)
     rest_seconds: Mapped[int | None] = mapped_column(nullable=True)
     notes: Mapped[str | None] = mapped_column(Text, nullable=True)
+    routine: Mapped["Routine"] = relationship(back_populates="exercises")
+
+    #read only so I can show the exercise name not just the id
+    exercise: Mapped["Exercise"] = relationship(viewonly=True)

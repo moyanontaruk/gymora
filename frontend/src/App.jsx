@@ -1,121 +1,115 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
-import heroImg from './assets/hero.png'
-import './App.css'
+// importing named things from a package
+// the curly braces mean "pick these specific items out of the package"
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
+
+// importing my own file. the ./ means "in a folder next to this one"
+import Home from './pages/Home.jsx'
+import NavBar from './components/NavBar.jsx'
+import Exercises from './pages/Exercises.jsx'
+import Login from './pages/Login.jsx'
+import Register from './pages/Register.jsx'
+import Workouts from './pages/Workouts.jsx'
+import ProtectedRoute from './components/ProtectedRoute.jsx'
+import LogWorkout from './pages/LogWorkout.jsx'
+import Assistant from './pages/Assistant.jsx'
+import MoltenMetal from './components/MoltenMetal/MoltenMetal.jsx'
+import GenerateRoutine from './pages/GenerateRoutine.jsx'
+import RoutineDetail from './pages/RoutineDetail.jsx'
+import Equipment from './pages/Equipment.jsx'
+import Profile from './pages/Profile.jsx'
+import Routines from './pages/Routines.jsx'
+import ExerciseDetail from './pages/ExerciseDetail.jsx'
+
+
+
+
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
-    <>
-      <section id="center">
-        <div className="hero">
-          <img src={heroImg} className="base" width="170" height="179" alt="" />
-          <img src={reactLogo} className="framework" alt="React logo" />
-          <img src={viteLogo} className="vite" alt="Vite logo" />
-        </div>
-        <div>
-          <h1>Get started</h1>
-          <p>
-            Edit <code>src/App.jsx</code> and save to test <code>HMR</code>
-          </p>
-        </div>
-        <button
-          type="button"
-          className="counter"
-          onClick={() => setCount((count) => count + 1)}
-        >
-          Count is {count}
-        </button>
-      </section>
+    // BrowserRouter switches on URL handling for everything inside it
+    <BrowserRouter>
 
-      <div className="ticks"></div>
+      {/* fixed behind everything else, so it shows through as a page-wide backdrop */}
+      <div style={{ position: 'fixed', inset: 0, zIndex: -1 }}>
+        <MoltenMetal
+          color1="#112250"
+          color2="#d89e2a"
+          color3="#FFFFFF"
+          speed={0.55}
+          scale={5.2}
+          detail={4}
+          glow={1.6}
+          coreSize={0.1}
+          swirl={1}
+          fold={-0.2}
+          blackPoint={0.05}
+          brightness={1.55}
+          colorMode="molten"
+          grain={true}
+          grainIntensity={0.03}
+          mouseInteraction={true}
+          mouseStrength={0.3}
+          opacity={1.0}
+        />
+      </div>
 
-      <section id="next-steps">
-        <div id="docs">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#documentation-icon"></use>
-          </svg>
-          <h2>Documentation</h2>
-          <p>Your questions, answered</p>
-          <ul>
-            <li>
-              <a href="https://vite.dev/" target="_blank">
-                <img className="logo" src={viteLogo} alt="" />
-                Explore Vite
-              </a>
-            </li>
-            <li>
-              <a href="https://react.dev/" target="_blank">
-                <img className="button-icon" src={reactLogo} alt="" />
-                Learn more
-              </a>
-            </li>
-          </ul>
-        </div>
-        <div id="social">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#social-icon"></use>
-          </svg>
-          <h2>Connect with us</h2>
-          <p>Join the Vite community</p>
-          <ul>
-            <li>
-              <a href="https://github.com/vitejs/vite" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#github-icon"></use>
-                </svg>
-                GitHub
-              </a>
-            </li>
-            <li>
-              <a href="https://chat.vite.dev/" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#discord-icon"></use>
-                </svg>
-                Discord
-              </a>
-            </li>
-            <li>
-              <a href="https://x.com/vite_js" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#x-icon"></use>
-                </svg>
-                X.com
-              </a>
-            </li>
-            <li>
-              <a href="https://bsky.app/profile/vite.dev" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#bluesky-icon"></use>
-                </svg>
-                Bluesky
-              </a>
-            </li>
-          </ul>
-        </div>
-      </section>
+      {/* OUTSIDE Routes, so it shows on every page */}
+      <NavBar />
 
-      <div className="ticks"></div>
-      <section id="spacer"></section>
-    </>
+      {/* Routes = the list of possibilities. only ONE will match and render */}
+      <Routes>
+
+      {/* path = the URL. element = what to show for it */}
+      <Route path="/" element={<Home />} />
+
+      <Route path="/exercises" element={<Exercises />} />
+
+      <Route path="/login" element={<Login />} />
+      <Route path="/register" element={<Register />} />
+
+      <Route path="/workouts" element={
+        <ProtectedRoute>
+          <Workouts />
+        </ProtectedRoute>}/>
+
+      <Route path="/workouts/new" element={
+        <ProtectedRoute>
+          <LogWorkout />
+        </ProtectedRoute>}/>
+
+      <Route path ="/assistant" element={
+        <ProtectedRoute>
+          <Assistant />
+        </ProtectedRoute>}/>
+
+      <Route path="/routines" element={
+        <ProtectedRoute>
+          <Routines />
+        </ProtectedRoute>}/>
+
+      <Route path="/routines/generate" element={
+        <ProtectedRoute>
+          <GenerateRoutine />
+        </ProtectedRoute>}/>
+
+      <Route path="/routines/:routineId" element={
+        <ProtectedRoute>
+          <RoutineDetail />
+        </ProtectedRoute>}/>
+
+      
+
+      <Route path="/profile" element={
+        <ProtectedRoute>
+          <Profile />
+        </ProtectedRoute>}/>
+
+  <Route path="/equipment" element={<Equipment />} />
+
+      <Route path="/exercises/:exerciseId" element={<ExerciseDetail />} />
+
+      </Routes>
+    </BrowserRouter>
   )
 }
 

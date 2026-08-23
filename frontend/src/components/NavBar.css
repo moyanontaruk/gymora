@@ -1,0 +1,127 @@
+/* .navbar ... matches className="navbar" in the jsx
+   the DOT is required... it means "match by class"
+   (# means match by id, no symbol means match by tag name) */
+.navbar {
+
+  /* flex ==it turns this element into a row,
+     and its children line up side by side instead of stacking */
+  display: flex;
+
+  /* space-between== pushes the first child to the far left, the last to the far right, gap in the middle.
+    this is what puts the logo left and links right */
+  justify-content: space-between;
+
+  /* center lines children up vertically in the middle
+    so the logo and links sit on the same line rather than top-aligned */
+  align-items: center;
+
+  /* two values = vertical then horizontal. so 16px top and bottom,
+     40px left and right. using the scale defined in index.css */
+  padding: var(--space-md) var(--space-xl);
+
+  /* 1px = thinnest visible line
+    solid but alternatives: dashed, dotted
+    separates the bar from the page below it */
+  border-bottom: 1px solid var(--border);
+
+  /* PillNav's own container is position:absolute by default (it's meant
+     to float over a page). we want it to sit in this bar's flex row
+     instead, so this gives the absolute popover something to anchor to
+     and lets it take up normal flex space below. */
+  position: relative;
+}
+
+
+/* PillNav ships styled to float over a hero section. here it's one of
+   two children in this flex row, so drop the absolute positioning and
+   let it size to its content like any other flex item. */
+.navbar .pill-nav-container {
+  position: static;
+  z-index: auto;
+}
+
+
+/* PillNav's default logo slot is a circular badge (border-radius:50%,
+   object-fit:cover) sized for a square icon. GymoraNavLogo.png is a wide
+   icon+wordmark lockup, so cropping it into a circle would cut the text
+   off entirely — drop the circle and let it sit as a plain rectangle
+   sized off its own aspect ratio instead. */
+.navbar .pill-logo {
+  width: auto;
+  height: 48px;
+  padding: 0;
+  border-radius: 0;
+  background: transparent;
+}
+
+.navbar .pill-logo img {
+  width: auto;
+  height: 100%;
+  object-fit: contain;
+}
+
+
+.navbar-actions {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  white-space: nowrap;
+}
+
+
+@media (max-width: 768px) {
+  /* PillNav's mobile styles claim the full width of its container so its
+     logo and hamburger button can spread to the edges. inside this flex
+     row that squeezes navbar-actions down until "Log In" wraps, so give
+     it room to shrink instead. */
+  .navbar .pill-nav-container {
+    flex: 1 1 auto;
+    min-width: 0;
+  }
+}
+
+
+@media (min-width: 769px) {
+  /* center the pill group in the bar regardless of how wide the Log In /
+    Log Out button is: an empty spacer column balances the actions
+    column so the middle column is the true visual center. */
+  .navbar {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+  }
+
+  .navbar .pill-nav-container {
+    grid-column: 2;
+    justify-self: center;
+  }
+
+  .navbar-actions {
+    grid-column: 3;
+    justify-self: end;
+  }
+}
+
+
+
+/* matches pillColor*/
+.nav-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 42px;
+  padding: 0 18px;
+  background: #ceac68;
+  color: #112250;
+  border: none;
+  border-radius: 9999px;
+  font-weight: 600;
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.2px;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.nav-btn:hover {
+  background: #f5f0e9;
+}

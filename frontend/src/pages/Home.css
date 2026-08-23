@@ -1,0 +1,136 @@
+.hero {
+  /*two values = vertical then horizontal.
+  so 40px top and bottom, 40px left and right.
+  using the --space-xl I defined in index.css */
+  padding: var(--space-xl);
+
+  /*1100px stops text stretching the full width of a wide monitor,
+  that would be hard to read. */
+  max-width: 1100px;
+
+  /* auto = tells browser to split the leftover space
+  with 0 top/bottom and auto left/right, this centres the block */
+  margin: 0 auto;
+
+  /* the logo/tagline/buttons block is centered; .cards overrides
+     this back to left so card copy stays easy to read */
+  text-align: center;
+}
+
+
+.hero-logo {
+  /* clamp() -- scales w/ the window (with a floor & ceiling)
+        so it never gets too small or large.
+  vw = 1% of the window WIDTH, so 28vw grows with the window.*/
+  width: clamp(220px, 28vw, 420px);
+  height: auto;
+  display: block;
+  margin: 0 auto;
+}
+
+.hero-text {
+  /*4 values would be top/right/bottom/left. 2 values = vertical/horizontal.
+  pushing the paragraph away from the buttons below
+  how closely the title/text are
+  0 top and --space-md (16px) bottom.
+  auto on the sides re-centers it now that .hero-text has a max-width */
+  margin: var(--space-md) auto;
+
+  font-size: 1.3rem;
+  color: var(--text-muted);
+  max-width: 710px;
+}
+
+.hero-buttons {
+  /* flex = REQUIRED keyword. children sit side by side in a row */
+  display: flex;
+
+  /* centers the button pair under the now-centered logo/text above */
+  justify-content: center;
+
+  /* gap = space BETWEEN children, not around the outside */
+  gap: var(--space-md);
+
+  /* wrap =if the row is too narrow for both buttons,
+  the second drops onto a new line instead of squashing.*/
+  flex-wrap: wrap;
+  margin-bottom: var(--space-xl);
+}
+
+
+
+
+
+.cards {
+  /* grid=like flex, but for rows AND columns at once */
+  display: grid;
+
+  /*reads as..make as many columns as fit, each at least 220px wide,
+  each sharing the leftover space equally (1fr).
+  fr = "fraction of the free space".*/
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: var(--space-md);
+
+  /* .hero centers everything above; card copy reads better left-aligned */
+  text-align: left;
+}
+
+
+.card-icon {
+  width: 40px;
+  height: 40px;
+  margin-bottom: var(--space-sm);
+}
+
+
+.card-link {
+  display: inline-block;
+  margin-top: var(--space-sm);
+  color: var(--accent);
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+
+.card {
+  background: var(--surface);
+  padding: var(--space-lg);
+  border-radius: 60px;
+  border: 5px solid var(--border);
+
+  color:inherit;
+  text-decoration: none;
+  display: block;
+}
+
+/* .card h3 = an h3 INSIDE an element with class card.
+   the SPACE is REQUIRED and means "inside".
+   so this only affects headings in cards, not h3 elsewhere */
+.card h3 {
+  color: var(--accent);
+  margin-bottom: var(--space-sm);
+}
+
+.card p {
+  margin: 0;
+  color: var(--text-muted);
+
+  /* 0.95rem =smaller than body text.
+  card descriptions are supporting detail, not main content */
+  font-size: .95rem;
+}
+
+/*.card:hover is like the a:hover rule in index.css..
+and comes later, so this one wins. removes the underline from the whole card
+and adds a gold edge so it still looks clickable */
+.card:hover {
+  text-decoration: none;
+  border-color: var(--accent);
+}
+
+/* underline back on just the heading.
+the SPACE between .card:hover and h3 means "an h3 inside a
+   hovered card" to keep the description <p> stays clean */
+.card:hover h3 {
+  text-decoration: underline;
+}

@@ -1,32 +1,40 @@
 from fastapi import FastAPI
-from app.routers import equipment, exercise,auth, workout_log, muscle_group
 from fastapi.middleware.cors import CORSMiddleware
+from app.routers import equipment, exercise, auth, workout_log, muscle_group, assistant, routine, stats
 
 app = FastAPI(title="Gymora API")
 
+#browsers block requests between different origins by default
+#react runs on 5173, this api on 8000, so they count as different
+#this tells the browser those two are allowed to talk
 app.add_middleware(
     CORSMiddleware,
 
-    #not doing ["*"] b/c then all origins(any webssite) would be able to access
-        #listing exactly which so only the react dev server can enter
-    allow_origins=["http://localhost:5173","http://127.0.0.1:5173"],
+    #only my react dev server. NOT "*", which would allow any website
+    allow_origins=["http://localhost:5173", "http://127.0.0.1:5173"],
 
-    #let browser send Authorization header with the JWT
+    #let the browser send the Authorization header with the JWT
     allow_credentials=True,
+
 
     #GET, POST, PUT, DELETE
     allow_methods=["*"],
     allow_headers=["*"],
 )
 
-
 app.include_router(equipment.router)
 app.include_router(exercise.router)
 app.include_router(auth.router)
 app.include_router(workout_log.router)
 app.include_router(muscle_group.router)
+app.include_router(assistant.router)
+app.include_router(routine.router)
+app.include_router(stats.router)
+
+
 
 
 @app.get("/")
 def read_root():
     return {"message": "Gymora API is running"}
+

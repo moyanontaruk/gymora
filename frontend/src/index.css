@@ -1,111 +1,323 @@
+/* CSS comments look like this. */
+
+/* --> playfair display front loaded from google fonts
+-- > @import has to be first before other rules
+--> wght@... only download the selected weight, not all
+      ( it's semi + bold weights for this)*/
+
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&display=swap');
+
+
+
+/* :root = the whole document. Used here to declare reusable values */
 :root {
-  --text: #6b6375;
-  --text-h: #08060d;
-  --bg: #fff;
-  --border: #e5e4e7;
-  --code-bg: #f4f3ec;
-  --accent: #aa3bff;
-  --accent-bg: rgba(170, 59, 255, 0.1);
-  --accent-border: rgba(170, 59, 255, 0.5);
-  --social-bg: rgba(244, 243, 236, 0.5);
-  --shadow:
-    rgba(0, 0, 0, 0.1) 0 10px 15px -3px, rgba(0, 0, 0, 0.05) 0 4px 6px -2px;
+  /* these are CSS custom properties, or "variables"
+  the double dash is required, it's how CSS knows it's mine
+  defining them once means changing a colour changes it everywhere */
 
-  --sans: system-ui, 'Segoe UI', Roboto, sans-serif;
-  --heading: system-ui, 'Segoe UI', Roboto, sans-serif;
-  --mono: ui-monospace, Consolas, monospace;
+/* the -- are mandatory, syntax that marks it as my own rather then buillt-in property*/
+/*found color combo inspo from pinterest*/
+  --royal-blue: #112250;
+  --sapphire: #3c507d;
+  --quicksand: #ceac68;
+  --swan-wing: #f5f0e9;
+  --shellstone: #d9cbc2;
 
-  font: 18px/145% var(--sans);
-  letter-spacing: 0.18px;
-  color-scheme: light dark;
-  color: var(--text);
-  background: var(--bg);
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  /*selected colors above and now these are what the colors will do*/
+  /*again, this is at the root so if i wanted to change colors elsewhere later, 
+        i can just change it here and it'll change it everywhere*/
+  --bg: var(--royal-blue);
+  --surface: var(--sapphire);
+  --text: var(--swan-wing);
+  --text-muted: var(--shellstone);
+  --accent: var(--quicksand);
 
-  @media (max-width: 1024px) {
-    font-size: 16px;
-  }
+  /*the hex converted to decimal. looked up on google "hex to rgb
+  this is for --quicksand: #e0c58f;*/
+  --border: rgba(224, 197, 143, 0.25);
+
+/*font*/
+--font-heading: 'Playfair Display', Georgia, serif;
+--font-body: system-ui, 'Segoe UI', Roboto, sans-serif;
+
+
+/*spacing*/
+  --space-xs: 4px;
+  --space-sm: 8px;
+  --space-md: 16px;
+  --space-lg: 24px;
+  --space-xl: 40px;
+
+/*corners*/
+  --radius: 9999px;
+  --radius-lg: 50% 20% / 10% 40%;;
+
+
+  /*plain rounded corner..for things where the blob shape
+  would make text hard to read (input boxes, chat bubbles).*/
+  --radius-soft: 12px;
+
+/*red for error messages.*/
+  --danger: #e57373;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --text: #9ca3af;
-    --text-h: #f3f4f6;
-    --bg: #16171d;
-    --border: #2e303a;
-    --code-bg: #1f2028;
-    --accent: #c084fc;
-    --accent-bg: rgba(192, 132, 252, 0.15);
-    --accent-border: rgba(192, 132, 252, 0.5);
-    --social-bg: rgba(47, 48, 58, 0.5);
-    --shadow:
-      rgba(0, 0, 0, 0.4) 0 10px 15px -3px, rgba(0, 0, 0, 0.25) 0 4px 6px -2px;
-  }
 
-  #social .button-icon {
-    filter: invert(1) brightness(2);
-  }
-}
 
-body {
-  margin: 0;
-}
 
-#root {
-  width: 1126px;
-  max-width: 100%;
-  margin: 0 auto;
-  text-align: center;
-  border-inline: 1px solid var(--border);
-  min-height: 100svh;
-  display: flex;
-  flex-direction: column;
+
+
+/* the asterisk symbol * = the universal selector. matches every element on the page */
+* {
+  /* by default, adding padding makes an element BIGGER than its set width
+  border-box makes padding count INSIDE the width instead of adding to it.
+  nearly everyone sets this, it makes sizing behave sensibly */
   box-sizing: border-box;
 }
 
-h1,
-h2 {
-  font-family: var(--heading);
-  font-weight: 500;
-  color: var(--text-h);
-}
-
-h1 {
-  font-size: 56px;
-  letter-spacing: -1.68px;
-  margin: 32px 0;
-  @media (max-width: 1024px) {
-    font-size: 36px;
-    margin: 20px 0;
-  }
-}
-h2 {
-  font-size: 24px;
-  line-height: 118%;
-  letter-spacing: -0.24px;
-  margin: 0 0 8px;
-  @media (max-width: 1024px) {
-    font-size: 20px;
-  }
-}
-p {
+/* body = the whole visible page */
+body {
+  /* browsers add a default margin around the page and this will remove the gap around the page edge */
   margin: 0;
+
+  /* font-family takes a list. the browser uses the first one it has
+  system-ui means "whatever this operating system normally uses" 
+  .. already set above so add the variable name in...*/
+  font-family: var(--font-body);
+
+  /* 1.6 = line height. lines sit 1.6x the font size apart.
+  a plain number here means "relative to this element's font size" */
+  line-height: 1.6;
+
+  /* var() reads one of the values declared in :root above */
+  color: var(--text);
+  background: var(--bg);
 }
 
-code,
-.counter {
-  font-family: var(--mono);
-  display: inline-flex;
-  border-radius: 4px;
-  color: var(--text-h);
+
+h1, h2, h3 {
+  font-family: var(--font-heading);
+  
+  /*how thick the bolding i want*/
+  font-weight: 700;
+  margin:0;
+  letter-spacing: -0.5px;
 }
 
-code {
-  font-size: 15px;
-  line-height: 135%;
-  padding: 4px 8px;
-  background: var(--code-bg);
+/*a = everylink*/
+a {
+  color: var(--accent);
+
+  /*removing the default underline*/
+  text-decoration: none;
+}
+
+/*:hover = only while the mouse HOVER over it..duh*/
+a:hover {
+  text-decoration: underline;
+}
+
+
+
+
+
+
+/* #root targets the element with id="root", where React renders
+the # means "match by id" */
+#root {
+  /* vh = viewport height. 100vh = full height of the browser window
+  min-height rather than height, so it can grow past one screen meaning users can scroll */
+  min-height: 100vh;
+}
+
+
+
+
+
+
+
+
+
+
+/* shared stuff */
+
+
+.btn {
+  /* inline-block = links are normally "inline", which ignores padding
+  top and bottom. inline-block makes padding work properly while still sitting in a row */
+  display: inline-block;
+
+  /*button size/shape */
+  padding: 10px 25px;
+
+  border-radius: var(--radius);
+  font-weight: 600;
+
+  /*removes the underline when you hover over links*/
+  text-decoration: none;
+
+  /*buttons made with <button> don't inherit the page font by default
+  ...they use the browser's. 
+  these two lines make a <button> and a <Link className="btn"> look identical */
+  font-family: var(--font-body);
+  font-size: 1rem;
+
+  /* <button> also gets a default browser border
+  ,,,removing it so the two button types match */
+  border: 5px solid transparent;
+
+  /*shows a hand pointer over <button>, which links get automatically but buttons don't */
+  cursor: pointer;
+}
+
+
+/* the filled button. gold background, dark text */
+.btn-solid {
+  background: var(--accent);
+  color: var(--royal-blue);
+  border: 5px solid transparent;
+}
+
+/*outline button. see-thru with a gold edge */
+.btn-outline {
+  /* transparent so the page background shows through */
+  background: transparent;
+  color: var(--accent);
+  border: 5px solid var(--accent);
+}
+.btn-solid:hover {
+  background: var(--swan-wing);
+  text-decoration: none;
+}
+.btn-outline:hover {
+  background: var(--accent);
+  color: var(--bg);
+  text-decoration: none;
+}
+
+
+
+/* when a button is disabled (while a form is submitting)
+:disabled is a pseudo class like :hover, but for the disabled state */
+.btn:disabled {
+  /* opacity 0 =invisible, 1 is solid, 0.5 fades it */
+  opacity: 0.5;
+
+  /* not-allowed shows the crossed-circle cursor */
+  cursor: not-allowed;
+}
+
+
+/*form inputs... used on Login, Register, LogWorkout and Assistant. 
+the comma list means all four element types get the same styling */
+input,
+select,
+textarea {
+  /* block + 100% width makes each field fill its container and sit on its own line, rather than shrinking to fit
+  like whatever screen it's using*/
+  display: block;
+  width: 100%;
+
+  padding: 10px 14px;
+
+  /* radius-soft not radius b/c the blob shape makes a text box hard to read */
+  border-radius: var(--radius-soft);
+
+  border: 1px solid var(--border);
+
+  /*lighter navy so fields stand out from the page */
+  background: var(--surface);
+  color: var(--text);
+
+  /*inputs do NOT inherit the page font by default. 
+  w/o these 2 lines they'd use the browser's default(which looks wrong and ugly) */
+  font-family: var(--font-body);
+  font-size: 1rem;
+
+  margin-bottom: var(--space-md);
+}
+
+
+/* :focus = while the field is selected and being typed in.
+important for accessibility, keyboard users need to see where they are on the page */
+input:focus,
+select:focus,
+textarea:focus {
+
+  /* outline is the ring browsers draw round a focused element.
+  removing the default and replacing it with my own...
+  so it fits the theme. 
+  
+  can't remove it without a replacement b/c it'll break the keyboard navigation */
+  outline: 2px solid var(--accent);
+
+  /* pushes the ring a couple of pixels away from the edge */
+  outline-offset: 2px;
+
+  border-color: var(--accent);
+}
+
+
+/*placeholder = the grey hint text inside an empty field.
+::placeholder = styles a part of an element that isn't a separate tag. 
+  note -- double colon, unlike :hover */
+input::placeholder,
+textarea::placeholder {
+  color: var(--text-muted);
+
+  /* fading it so the hint is clearly not real typed content */
+  opacity: 0.6;
+}
+
+
+/* labels above form fields.*/
+label {
+  display: block;
+  margin-bottom: var(--space-xs);
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+
+/*the "Loading..." message. used by Exercises, Workouts and Assistant */
+.status {
+  padding: var(--space-xl);
+  text-align: center;
+  color: var(--text-muted);
+}
+
+
+/*the error box. used by Login, Register, LogWorkout and Assistant. 
+the class name says "auth" but changes have been made since then so it's used more than just auth now */
+.auth-error {
+  padding: var(--space-sm) var(--space-md);
+  margin-bottom: var(--space-md);
+
+  border-radius: var(--radius-soft);
+
+  /* the red at 15% opacity for the background
+  solid for the text and border...
+  so it reads as an error without being harsh */
+  background: rgba(229, 115, 115, 0.15);
+  border: 1px solid var(--danger);
+  color: var(--danger);
+
+  font-size: 0.95rem;
+}
+
+
+/* sr-only = "screen reader only".
+the element stays in the page for screen readers to announce
+but is moved out of sight. display:none would hide it from screen readers too..
+which defeats the point.... NFR5 */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+
+  /* clip-path crops the element to nothing visible */
+  clip-path: inset(50%);
+
+  /* stops a long label forcing a scrollbar */
+  white-space: nowrap;
 }

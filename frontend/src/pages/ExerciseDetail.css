@@ -1,0 +1,124 @@
+.exercise-detail-page {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: var(--space-xl) var(--space-md);
+}
+
+
+.back-link {
+    display: inline-block;
+    margin-bottom: var(--space-lg);
+    font-size: 0.95rem;
+}
+
+
+.exercise-detail-page h1 {
+    color: var(--accent);
+    font-size: 2.2rem;
+    margin-bottom: var(--space-md);
+}
+
+
+/*the row of tags under the title*/
+.detail-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-xs);
+    margin-bottom: var(--space-xl);
+}
+
+
+/*equipment tags in a different shade to muscle groups, so the
+    two kinds are distinguishable at a glance*/
+.tag-equipment {
+    background: rgba(60, 80, 125, 0.5);
+}
+
+
+/*text and image side by side*/
+.detail-body {
+    display: flex;
+    gap: var(--space-lg);
+
+    /*wrap so the image drops below the text on a narrow screen*/
+    flex-wrap: wrap;
+}
+
+
+/*the text column. grow to fill, wrap below 300px*/
+.detail-main {
+    flex: 1 1 300px;
+}
+
+
+.detail-block {
+    padding: var(--space-lg);
+    margin-bottom: var(--space-md);
+
+    background: var(--surface);
+    border-radius: var(--radius-soft);
+    border: 1px solid var(--border);
+}
+
+
+.detail-block h2 {
+    color: var(--accent);
+    font-size: 1.2rem;
+    margin-bottom: var(--space-sm);
+}
+
+
+.detail-block p {
+    margin: 0;
+
+    /*keeps any line breaks in the wger description*/
+    white-space: pre-line;
+}
+
+
+/*shown when wger gave us neither a description nor instructions*/
+.no-detail {
+    color: var(--text-muted);
+    font-style: italic;
+}
+
+
+/*the image column. doesn't grow, so the text takes the extra
+    space on a wide screen*/
+.detail-image {
+    flex: 0 1 320px;
+
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xs);
+}
+
+
+.detail-image img {
+    /*100% of the column, and auto height keeps the proportions.
+        without max-width the image renders at its natural size
+        and could be enormous*/
+    width: 100%;
+    height: auto;
+
+    border-radius: var(--radius-soft);
+    border: 1px solid var(--border);
+
+    /*wger images are usually on white, so a light background
+        stops them looking like they're floating on navy*/
+    background: var(--swan-wing);
+}
+
+
+/*required by the CC BY-SA licence wherever the image is shown*/
+.image-credit {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    opacity: 0.7;
+    text-align: right;
+}
+
+
+.detail-actions {
+    margin-top: var(--space-xl);
+}

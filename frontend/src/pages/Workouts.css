@@ -1,0 +1,143 @@
+/* the page container. same max-width pattern as the other pages */
+.workouts-page {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: var(--space-xl) var(--space-md);
+}
+
+
+.workouts-page h1 {
+  color: var(--accent);
+
+  /* pushes the Log a Workout button away from the heading */
+  margin-bottom: var(--space-lg);
+}
+
+
+/* the Log a Workout button. index.css handles how it looks,
+   this just gives it room below before the list starts */
+.workouts-page .btn {
+  margin-bottom: var(--space-xl);
+}
+
+
+/* the stack of workout cards. flex column so I can use gap,
+   which is cleaner than putting margin on every card */
+.workout-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+
+.workout-card {
+  background: var(--surface);
+  padding: var(--space-lg);
+  border-radius: var(--radius-soft);
+  border: 1px solid var(--border);
+}
+
+
+/* the title and date row at the top of each card */
+.workout-head {
+  display: flex;
+
+  /* space-between pushes the title left and the date right,
+     with the gap in the middle */
+  justify-content: space-between;
+
+  /* baseline lines them up on the text baseline rather than
+     the box edges, so different font sizes still look level */
+  align-items: baseline;
+
+  /* wrap so on a narrow screen the date drops below the title
+     instead of crushing it */
+  flex-wrap: wrap;
+  gap: var(--space-sm);
+
+  /* a faint line separating the header from the exercises */
+  padding-bottom: var(--space-sm);
+  border-bottom: 1px solid var(--border);
+  margin-bottom: var(--space-md);
+}
+
+
+.workout-head h3 {
+  color: var(--accent);
+  font-size: 1.3rem;
+}
+
+
+.workout-date {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+
+  /* stops "9 August 2026" breaking across two lines */
+  white-space: nowrap;
+}
+
+
+/* the user's notes about the session */
+.workout-notes {
+  margin: 0 0 var(--space-md) 0;
+  color: var(--text-muted);
+  font-size: 0.95rem;
+
+  /* italic so notes read as the user's own voice, distinct from
+     the recorded data below */
+  font-style: italic;
+}
+
+
+/* the list of exercises performed */
+.exercise-list {
+  /* removes the bullet points browsers add to <ul> */
+  list-style: none;
+
+  /* browsers also indent lists by default. both of these
+     reset that */
+  margin: 0;
+  padding: 0;
+
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+}
+
+
+.exercise-list li {
+  padding: var(--space-xs) 0;
+}
+
+
+.exercise-name {
+  font-weight: 600;
+}
+
+
+/* the "3 x 10" and "@ 20kg" parts */
+.detail {
+  color: var(--text-muted);
+  font-size: 0.95rem;
+}
+
+
+/* shown when the user has logged nothing yet.
+   .empty-state is also in Exercises.css - the duplication is
+   worth noting, it could move to index.css later */
+.empty-state {
+  padding: var(--space-xl);
+  text-align: center;
+  color: var(--text-muted);
+
+  background: var(--surface);
+  border-radius: var(--radius-soft);
+  border: 1px solid var(--border);
+}
+
+
+/* the second line in the empty state, the quieter hint */
+.empty-hint {
+  font-size: 0.9rem;
+  opacity: 0.7;
+}

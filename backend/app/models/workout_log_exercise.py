@@ -19,3 +19,9 @@ class WorkoutLogExercise(Base):
     #the other direction. each exercise row belongs to exactly 1 workout
         #back_populates values are crossed pair, names the other class (WorkoutLog) attribute
     workout_log: Mapped["WorkoutLog"] = relationship(back_populates="exercises")
+
+
+
+    #to see the exercise's name and not just id
+        #w/o it, only the id gets written when saving
+    exercise: Mapped["Exercise"] = relationship(viewonly=True)

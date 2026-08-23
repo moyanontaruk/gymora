@@ -1,0 +1,196 @@
+/* the page container. narrow, because chat is easier to read
+   in a column than stretched across a monitor */
+.assistant-page {
+  max-width: 750px;
+  margin: 0 auto;
+  padding: var(--space-xl) var(--space-md);
+}
+
+
+.assistant-page h1 {
+  color: var(--accent);
+  margin-bottom: var(--space-xs);
+}
+
+
+.assistant-intro {
+  color: var(--text-muted);
+  font-size: 0.95rem;
+  margin: 0 0 var(--space-lg) 0;
+}
+
+
+
+
+
+/* the scrolling conversation area */
+.chat {
+  /* CHANGED - a fixed height instead of flex:1.
+     420px is roughly 4 or 5 exchanges before scrolling starts,
+     so the input box is always visible without scrolling the page */
+  height: 420px;
+
+  /* auto = show a scrollbar only when the messages overflow */
+  overflow-y: auto;
+
+  padding: var(--space-md);
+  margin-bottom: var(--space-md);
+
+  background: var(--surface);
+  border-radius: var(--radius-soft);
+  border: 1px solid var(--border);
+
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+
+}
+
+.chat > *:first-child {
+  margin-top: auto;
+  }
+
+
+
+
+
+
+
+/* the suggested questions, shown when there are no messages yet */
+.chat-empty {
+  color: var(--text-muted);
+
+  /* auto top and bottom margin centres it vertically in the
+     empty chat area */
+  margin: auto 0;
+  text-align: center;
+}
+
+.chat-empty ul {
+  list-style: none;
+  padding: 0;
+  margin: var(--space-md) 0 0 0;
+
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+.chat-empty li {
+  /* italic and quoted so they read as examples rather than
+     things to click */
+  font-style: italic;
+  font-size: 0.95rem;
+}
+
+
+/* one question and answer pair */
+.exchange {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+
+/* both bubble types share this */
+.bubble {
+  padding: var(--space-md);
+
+  /* radius-soft not the blob shape. a speech bubble full of
+     text needs readable edges */
+  border-radius: var(--radius-soft);
+
+  /* 80% so bubbles never span the full width. that gap on one
+     side is what makes a chat READ as a conversation */
+  max-width: 80%;
+
+  /* pre-line keeps the line breaks the assistant wrote, while
+     still wrapping long lines normally. without it the reply
+     would come out as one solid paragraph */
+  white-space: pre-line;
+}
+
+
+.bubble p {
+  margin: 0;
+}
+
+
+/* the user's question. gold, pushed to the RIGHT */
+.bubble-user {
+  /* align-self overrides the parent's alignment for this one
+     item. flex-end = the right hand side */
+  align-self: flex-end;
+
+  background: var(--accent);
+  color: var(--royal-blue);
+}
+
+
+/* the assistant's answer. dark, pushed to the LEFT */
+.bubble-assistant {
+  align-self: flex-start;
+
+  background: var(--bg);
+  border: 1px solid var(--border);
+  color: var(--text);
+}
+
+
+/* the small timestamp under a question */
+.bubble-time {
+  display: block;
+  font-size: 0.75rem;
+  opacity: 0.7;
+  margin-top: var(--space-xs);
+
+  /* right aligned inside a right aligned bubble */
+  text-align: right;
+}
+
+
+/* NFR4 made visible. shown when the assistant couldn't answer
+   from the logged data */
+.bubble-flag {
+  display: block;
+  margin-top: var(--space-sm);
+  padding-top: var(--space-sm);
+  border-top: 1px solid var(--border);
+
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  font-style: italic;
+}
+
+
+/* the placeholder bubble while waiting for a reply */
+.bubble-waiting {
+  opacity: 0.6;
+}
+
+
+/* the question box and Ask button, side by side */
+.chat-form {
+  display: flex;
+  gap: var(--space-sm);
+
+  /* align-items flex-start stops the button stretching taller
+     than the input */
+  align-items: flex-start;
+}
+
+
+/* the input fills the space, the button keeps its own width */
+.chat-form input {
+  flex: 1;
+
+  /* index.css adds a bottom margin to all inputs, which would
+     push the form away from the page bottom */
+  margin-bottom: 0;
+}
+
+
+.chat-form .btn {
+  /* stops the button shrinking when the input takes the space */
+  flex-shrink: 0;
+}

@@ -1,0 +1,198 @@
+/* the whole page. same max-width pattern as the auth card,
+   just much wider because this is a grid not a form */
+.exercise-page {
+  max-width: 1100px;
+
+  /* 0 top and bottom, auto left and right = centred */
+  margin: 0 auto;
+  padding: var(--space-xl) var(--space-md);
+}
+
+
+.exercise-page h1 {
+  color: var(--accent);
+  margin-bottom: var(--space-xs);
+}
+
+
+/* the "72 exercises found" line */
+.count {
+  color: var(--text-muted);
+  font-size: 0.95rem;
+  margin: 0 0 var(--space-lg) 0;
+}
+
+
+/* the grid of cards. same auto-fit pattern as the home page,
+   so it goes from 4 across on a laptop down to 1 on a phone
+   with no media query. part of NFR1 */
+.exercise-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: var(--space-md);
+}
+
+.exercise-card {
+    background: var(--surface);
+    padding: var(--space-lg);
+
+    /*radius-soft here, not the blob. cards holding several small
+    tags look cluttered with heavily curved corners*/
+    border-radius: var(--radius-soft);
+    border: 1px solid var(--border);
+
+    /*flex + column stacks the children vertically instead of in a row.
+    needed so the tags can sit at the bottom of every card even
+    when the names are different lengths*/
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+
+    /*these three are needed now the card is a <Link>.
+    inherit stops the text turning gold, and none stops
+    the underline*/
+    color: inherit;
+    text-decoration: none;
+}
+
+
+/*shows the card is clickable*/
+.exercise-card:hover {
+    border-color: var(--accent);
+    text-decoration: none;
+}
+
+
+/*underline just the name on hover, not the tags*/
+.exercise-card:hover h3 {
+    text-decoration: underline;
+}
+
+
+/* the row of small labels under the name */
+.tags {
+  display: flex;
+
+  /* wrap so a card with 4 muscle groups pushes them onto a
+     second line instead of overflowing */
+  flex-wrap: wrap;
+  gap: var(--space-xs);
+
+  /* auto = push this to the BOTTOM of the flex column, so tags
+     line up across cards even when names wrap differently */
+  margin-top: auto;
+}
+
+
+/* one small label. a <span> is inline by default, which ignores
+   vertical padding, so inline-block is needed */
+.tag {
+  display: inline-block;
+  padding: 3px 10px;
+
+  /* fully round ends, the pill shape. a big radius on a short
+     element just curves it completely */
+  border-radius: 999px;
+
+  /* the navy at low opacity so tags read as quieter than the name */
+  background: rgba(17, 34, 80, 0.6);
+  border: 1px solid var(--border);
+
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+
+/* the difficulty tag specifically. gold, because it's the one
+   piece of information a beginner most needs */
+.tag-difficulty {
+  background: rgba(206, 172, 104, 0.15);
+  border-color: var(--accent);
+  color: var(--accent);
+
+  /* capitalize makes "beginner" render as "Beginner" without
+     changing the stored data */
+  text-transform: capitalize;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*filter stuff*/
+
+/* NEW -- the row of filter controls above the grid */
+.filters {
+  display: flex;
+
+  /* wrap so filters drop onto a second line on a narrow screen
+     instead of squashing. part of NFR1 */
+  flex-wrap: wrap;
+
+  /* align-items: flex-end lines the Clear button up with the
+     BOTTOM of the dropdowns, since the dropdowns have labels
+     above them and the button doesn't */
+  align-items: flex-end;
+
+  gap: var(--space-md);
+
+  padding: var(--space-lg);
+  margin-bottom: var(--space-lg);
+
+  background: var(--surface);
+  border-radius: var(--radius-soft);
+  border: 1px solid var(--border);
+}
+
+
+/* NEW -- one label + input pair */
+.filter-field {
+  /* flex: 1 = grow to share the available space equally with the
+     other fields. 1 1 180px means: grow, shrink, but never go
+     below 180px before wrapping */
+  flex: 1 1 180px;
+}
+
+
+/* NEW -- index.css gives every input margin-bottom: 16px, which
+   would push the filter row taller than it needs to be. removing
+   it here only, inside .filter-field */
+.filter-field input,
+.filter-field select {
+  margin-bottom: 0;
+
+  /* a slightly darker background than the filter panel, so the
+     boxes read as sitting ON the panel rather than blending in */
+  background: var(--bg);
+}
+
+
+/* NEW -- the Clear button. index.css makes .btn inline-block,
+   which is right, but it needs a little space above so it sits
+   level with the dropdowns */
+.filters .btn {
+  /* flex-shrink 0 stops the button being squashed when the
+     row gets tight. it just wraps instead */
+  flex-shrink: 0;
+}
+
+
+/* NEW -- shown when filters match nothing */
+.empty-state {
+  padding: var(--space-xl);
+  text-align: center;
+  color: var(--text-muted);
+
+  background: var(--surface);
+  border-radius: var(--radius-soft);
+  border: 1px solid var(--border);
+}
