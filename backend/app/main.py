@@ -15,7 +15,7 @@ app.add_middleware(
                    "http://127.0.0.1:5173",
 
                    #add once netlify gives me url
-                   "gymora-train.netlify.app",
+                   "https://gymora-train.netlify.app",
                    ],
 
     #let the browser send the Authorization header with the JWT
