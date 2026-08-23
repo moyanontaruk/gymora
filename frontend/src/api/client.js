@@ -1,5 +1,8 @@
 // after deploying, this line will change
-const API_URL = 'http://localhost:8000'
+  //nrylify it's set to render url via an envir. variable
+  //import.meta.env is how vite exposes env vars to browser
+    //and the name has to start with VITE_ or vite wont include it
+const API_URL = import.meta.env.VITE_API_URL ||'http://localhost:8000'
 const TOKEN_KEY = 'gymora_token'
 
 

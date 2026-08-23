@@ -11,7 +11,12 @@ app.add_middleware(
     CORSMiddleware,
 
     #only my react dev server. NOT "*", which would allow any website
-    allow_origins=["http://localhost:5173", "http://127.0.0.1:5173"],
+    allow_origins=["http://localhost:5173", 
+                   "http://127.0.0.1:5173",
+
+                   #add once netlify gives me url
+                   "gymora-train.netlify.app",
+                   ],
 
     #let the browser send the Authorization header with the JWT
     allow_credentials=True,

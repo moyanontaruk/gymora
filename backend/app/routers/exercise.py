@@ -14,7 +14,6 @@ from app.models.user import User
 from app.core.dependencies import get_current_admin
 
 
-
 router = APIRouter(prefix="/exercises",tags=["exercises"])
 
 
