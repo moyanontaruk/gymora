@@ -42,29 +42,37 @@ function Home() {
             the h1 in importance. heading levels should describe
             structure, not size */}
         <Link to="/workouts"className="card">
-          <img src="/WorkoutHistory.png" alt="" className="card-icon" />
-          <h3>Workout History</h3>
+          <div className="card-head">
+            <img src="/WorkoutHistory.png" alt="" className="card-icon" />
+            <h3>Workout History</h3>
+          </div>
           <p>Review your past workouts and monitor your progress.</p>
           <span className="card-link">View &rarr;</span>
         </Link>
 
         <Link to="/routines" className="card">
-          <img src="/Routine.png" alt="" className="card-icon" />
-          <h3>Routines</h3>
+          <div className="card-head">
+            <img src="/Routine.png" alt="" className="card-icon" />
+            <h3>Routines</h3>
+          </div>
           <p>Follow or build routines that fit your goals.</p>
           <span className="card-link">View &rarr;</span>
         </Link>
 
         <Link to="/exercises" className="card">
-          <img src="/Dumbbell.png" alt="" className="card-icon" />
-          <h3>Exercises</h3>
+          <div className="card-head">
+            <img src="/Dumbbell.png" alt="" className="card-icon" />
+            <h3>Exercises</h3>
+          </div>
           <p>Browse exercises with step-by-step guides.</p>
           <span className="card-link">View &rarr;</span>
         </Link>
 
         <Link to="/equipment" className="card">
-          <img src="/plate.png" alt="" className="card-icon" />
-          <h3>Equipment</h3>
+          <div className="card-head">
+            <img src="/plate.png" alt="" className="card-icon" />
+            <h3>Equipment</h3>
+          </div>
           <p>Explore exercises by machines and free weights.</p>
           <span className="card-link">View &rarr;</span>
         </Link>

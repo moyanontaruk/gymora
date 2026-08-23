@@ -1,8 +1,12 @@
 .hero {
   /*two values = vertical then horizontal.
   so 40px top and bottom, 40px left and right.
-  using the --space-xl I defined in index.css */
-  padding: var(--space-xl);
+  using the --space-xl I defined in index.css 
+  
+  two values = vertical then horizontal.
+  dropping the vertical to --space-lg (24px) pulls the whole
+  block up so the cards aren't pushed off screen*/
+  padding: var(--space-xl) var(--space-xl);
 
   /*1100px stops text stretching the full width of a wide monitor,
   that would be hard to read. */
@@ -22,7 +26,7 @@
   /* clamp() -- scales w/ the window (with a floor & ceiling)
         so it never gets too small or large.
   vw = 1% of the window WIDTH, so 28vw grows with the window.*/
-  width: clamp(220px, 28vw, 420px);
+  width: clamp(180px, 20vw, 300px);
   height: auto;
   display: block;
   margin: 0 auto;
@@ -36,7 +40,7 @@
   auto on the sides re-centers it now that .hero-text has a max-width */
   margin: var(--space-md) auto;
 
-  font-size: 1.3rem;
+  font-size: 1rem;
   color: var(--text-muted);
   max-width: 710px;
 }
@@ -54,7 +58,7 @@
   /* wrap =if the row is too narrow for both buttons,
   the second drops onto a new line instead of squashing.*/
   flex-wrap: wrap;
-  margin-bottom: var(--space-xl);
+  margin-bottom: var(--space-lg);
 }
 
 
@@ -77,9 +81,9 @@
 
 
 .card-icon {
-  width: 40px;
-  height: 40px;
-  margin-bottom: var(--space-sm);
+  width: 32px;
+  height: 32px;
+  flex-shrink: 0;
 }
 
 
@@ -108,7 +112,6 @@
    so this only affects headings in cards, not h3 elsewhere */
 .card h3 {
   color: var(--accent);
-  margin-bottom: var(--space-sm);
 }
 
 .card p {
@@ -133,4 +136,14 @@ the SPACE between .card:hover and h3 means "an h3 inside a
    hovered card" to keep the description <p> stays clean */
 .card:hover h3 {
   text-decoration: underline;
+}
+
+/*puts the icon and heading on one row instead of stacked.
+    saves vertical space so all 4 cards fit above the fold.
+    needs a wrapper div round the icon and h3 in Home.jsx */
+.card-head {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  margin-bottom: var(--space-sm);
 }
