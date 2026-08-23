@@ -30,8 +30,8 @@ def recent_workouts_text(db: Session, user_id: int) -> str:
     statement = (
         select(WorkoutLog)
 
-        #TWO conditions: this user's rows and recent enough.
-            #the user_id line is stops one user's data
+        #2 conditions: this user's rows and recent enough.
+            #the user_id line stops one user's data
                 #from ever reaching another user's assistant
         .where(
             WorkoutLog.user_id == user_id,
@@ -189,22 +189,101 @@ def progression_text(db: Session, user_id: int) -> str:
 
 
 
-#ALL TOGETHER NOW (we all sing in unison)...
+
+
+
+
+
+#4 exercise library.. the assisant can suggest things that users never done.
+    #capped b/c sending all 500 exercises blew past groq's 8000 tokens per minute limit. 
+    #doing a sample is enough for suggestions..
+def exercise_library_text(db: Session) -> str:
+
+    #how many exercises to offer per muscle group.
+        #10 groups x 8 = about 80 lines so its more doable.
+    per_group = 8
+
+    lines = []
+
+    #get the muscle group names first then a few exercises for each.
+    groups = db.execute(
+        select(MuscleGroup.name, MuscleGroup.muscle_group_id)
+        .order_by(MuscleGroup.name)
+    ).all()
+
+    for group_name, group_id in groups:
+
+        statement = (
+            select(Exercise.name, Exercise.difficulty_level)
+            .join(ExerciseMuscleGroup, ExerciseMuscleGroup.exercise_id == Exercise.exercise_id)
+            .where(
+                ExerciseMuscleGroup.muscle_group_id == group_id,
+                Exercise.is_active == True,
+            )
+
+            #exercises w/ a difficulty rating first, since those are
+                #more useful to a beginner. nulls_last puts the
+                #unrated ones at the end
+            .order_by(Exercise.difficulty_level.desc().nulls_last())
+
+            #.limit() caps how many rows come back
+            .limit(per_group)
+        )
+
+        results = db.execute(statement).all()
+
+        for exercise_name, difficulty in results:
+            level = difficulty or "unspecified level"
+            lines.append(f"{group_name}: {exercise_name} ({level})")
+
+    return "\n".join(lines)
+
+
+
+
+
+
+
+#ALL TOGETHER NOW (we all sing in unison...)
 
 def build_context(db: Session, user_id: int) -> str:
 
-    #heading. =they tell the model what each block is..
+    #heading.. =they tell the model what each block is..
         #which makes it better at picking the right one..
+    
+    
     return f"""RECENT WORKOUTS (last {settings.assistant_history_days} days):
 {recent_workouts_text(db, user_id)}
 
-MUSCLE GROUPS TRAINED:
+Muscle Groups Training:
 {muscle_group_text(db, user_id)}
 
-WEIGHT PROGRESSION:
+Weight Progression:
 {progression_text(db, user_id)}
 
+Available Exercise in the Library:
+{exercise_library_text(db)}
+
+
 TODAY'S DATE: {date.today()}"""
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

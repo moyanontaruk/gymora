@@ -74,8 +74,37 @@ def ask_llm(system_prompt: str, user_message: str) -> str:
     if response.status_code == 429:
         raise LLMError("The assistant is busy right now. Please try again shortly.")
 
+
+
+
+
+    # if not response.ok:
+    #     raise LLMError("The assistant service returned an error.")
+
+    #if not response.ok:
+        #temp - printing groq's actual error to see what's wrong..
+        #print("GROQ SAID:", response.status_code, response.text)
+
+        #raise LLMError("The assistant service returned an error.")
+
+
+
     if not response.ok:
+        #log groq's actual error to the server console but don't send it to the user..
+            #they don't need the provider's internals and the raw response could contain details worth not exposing.
+            #this is what showed me the model name had been retired..
+        print("GROQ ERROR:", response.status_code, response.text)
+
         raise LLMError("The assistant service returned an error.")
+
+
+
+
+
+
+
+
+
 
     data = response.json()
 

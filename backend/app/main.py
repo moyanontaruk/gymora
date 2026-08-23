@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from app.routers import equipment, exercise, auth, workout_log, muscle_group, assistant
+from app.routers import equipment, exercise, auth, workout_log, muscle_group, assistant, routine, stats
 
 app = FastAPI(title="Gymora API")
 
@@ -26,6 +26,11 @@ app.include_router(auth.router)
 app.include_router(workout_log.router)
 app.include_router(muscle_group.router)
 app.include_router(assistant.router)
+app.include_router(routine.router)
+app.include_router(stats.router)
+
+
+
 
 @app.get("/")
 def read_root():
