@@ -8,26 +8,24 @@ import './Home.css'
 function Home() {
   return (
     <section className="hero">
-      <h1 className="hero-title">
-      Repping with reason
-          {/* br is a line break and it's self closing so slash is needed*/}
-      <br />
-      <br />
-      Track. Train. Transform
-      </h1>
 
+      <img
+        src="/GymoraTransparent.png"
+        alt="Gymora — Repping with reason. Track. Train. Transform."
+        className="hero-logo"
+      />
 
       <p className="hero-text">
-        Gasdfkjaskdfa
+        Discover exercises, build routines, track your workouts,
         <br />
-         xxxxx
+        and understand your progress—all in one place.
       </p>
 
 
       {/*btn fills the button with color vs having it seethru*/}
       <div className= "hero-buttons">
           <Link to="/workouts" className="btn btn-solid">
-          Start a workout
+          Start a Workout
           </Link>
 
           <Link to="/exercises" className="btn btn-outline">
@@ -44,23 +42,31 @@ function Home() {
             the h1 in importance. heading levels should describe
             structure, not size */}
         <Link to="/workouts"className="card">
+          <img src="/WorkoutHistory.png" alt="" className="card-icon" />
           <h3>Workout History</h3>
-          <p>Structured sessions to reach your goals.</p>
+          <p>Review your past workouts and monitor your progress.</p>
+          <span className="card-link">View &rarr;</span>
         </Link>
 
         <Link to="/routines" className="card">
+          <img src="/Routine.png" alt="" className="card-icon" />
           <h3>Routines</h3>
-          <p>Follow or build routines that fit your life.</p>
+          <p>Follow or build routines that fit your goals.</p>
+          <span className="card-link">View &rarr;</span>
         </Link>
 
         <Link to="/exercises" className="card">
+          <img src="/Dumbbell.png" alt="" className="card-icon" />
           <h3>Exercises</h3>
-          <p>Browse exercises with step by step guides.</p>
+          <p>Browse exercises with step-by-step guides.</p>
+          <span className="card-link">View &rarr;</span>
         </Link>
 
         <Link to="/equipment" className="card">
+          <img src="/plate.png" alt="" className="card-icon" />
           <h3>Equipment</h3>
           <p>Explore exercises by machines and free weights.</p>
+          <span className="card-link">View &rarr;</span>
         </Link>
       </div>
     </section>

@@ -240,3 +240,80 @@ export async function  askAssistant(question) {
 }
 
 
+
+
+
+
+
+//routines
+    //generate returns a routine w/o saving it, so the user can
+    //look at it first. save is a separate call
+
+//sends the preferences form, gets back a routine to preview
+export async function generateRoutine(preferences) {
+  return apiPostAuth('/routines/generate', preferences)
+}
+
+
+//saves a routine the user decided to keep.
+    //this is the one that actually writes to the database
+export async function saveRoutine(routine) {
+  return apiPostAuth('/routines/', routine)
+}
+
+
+//the list for the routines page. summary only, no exercises
+export async function getRoutines() {
+  return apiGetAuth('/routines/')
+}
+
+
+//one routine with all its exercises nested
+export async function getRoutine(routineId) {
+  //backticks for the ${} substitution
+  return apiGetAuth(`/routines/${routineId}`)
+}
+
+
+
+
+
+
+
+
+
+//DELETE needs its own helper since apiGetAuth and apiPostAuth
+    //only do GET and POST
+export async function apiDeleteAuth(path) {
+  const token = getToken()
+
+  const response = await fetch(API_URL + path, {
+    method: 'DELETE',
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  })
+
+  if (!response.ok) {
+    throw new Error(`Request failed: ${response.status}`)
+  }
+
+  //a 204 response has NO body at all, so calling .json() on it
+    //would throw. nothing to return here
+  return null
+}
+
+
+export async function deleteRoutine(routineId) {
+  return apiDeleteAuth(`/routines/${routineId}`)
+}
+
+
+
+
+
+
+//the profile summary. counts and breakdowns, all for the logged in user
+export async function getProfileStats() {
+  return apiGetAuth('/stats/profile')
+}

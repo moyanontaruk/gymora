@@ -1,0 +1,110 @@
+.equipment-page {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: var(--space-xl) var(--space-md);
+}
+
+
+.equipment-page h1 {
+    color: var(--accent);
+    margin-bottom: var(--space-xs);
+}
+
+
+.equipment-intro {
+    color: var(--text-muted);
+    margin: 0 0 var(--space-xl) 0;
+}
+
+
+/*the grid of equipment cards. same auto-fit pattern as everywhere else
+...so it reflows from 4 across down to 1 with no media query*/
+.equipment-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: var(--space-md);
+    margin-bottom: var(--space-xl);
+}
+
+
+/*one equipment card. it's a <button> not a div, b/c clicking it
+runs code rather than going to a url. buttons need their own
+font and cursor since they don't inherit either*/
+.equipment-card {
+    padding: var(--space-lg);
+
+    background: var(--surface);
+    border-radius: var(--radius-soft);
+    border: 2px solid var(--border);
+
+    /*text-align left b/c buttons centre their text by default,
+    which looks wrong on a card*/
+    text-align: left;
+
+    font-family: var(--font-body);
+    color: var(--text);
+    cursor: pointer;
+}
+
+
+.equipment-card:hover {
+    border-color: var(--accent);
+}
+
+
+/*the picked one. gold edge and a faint gold tint, so the
+selection is obvious without shouting*/
+.equipment-card-selected {
+    border-color: var(--accent);
+    background: rgba(206, 172, 104, 0.12);
+}
+
+
+.equipment-card h3 {
+    color: var(--accent);
+    font-size: 1.1rem;
+    margin-bottom: var(--space-xs);
+}
+
+
+.equipment-card p {
+    margin: 0;
+    font-size: 0.9rem;
+    color: var(--text-muted);
+}
+
+
+/*the results section below the grid*/
+.equipment-results {
+    padding-top: var(--space-xl);
+
+    /*a line separating the picker above from the results below*/
+    border-top: 1px solid var(--border);
+}
+
+
+.equipment-results h2 {
+    color: var(--accent);
+    margin-bottom: var(--space-lg);
+
+    /*so "Cable Machine" keeps its capitals as stored*/
+    text-transform: none;
+}
+
+
+/*.exercise-grid, .exercise-card, .tag and .tag-difficulty are all defined in Exercises.css. 
+css isn't scoped to a component
+...so they apply here automatically and i don't need to repeat them.
+that's the same accidental global behaviour noted elsewhere, but useful here*/
+
+
+/*fourth copy of .empty-state now. */
+.empty-state {
+    padding: var(--space-xl);
+    text-align: center;
+    color: var(--text-muted);
+
+    background: var(--surface);
+    border-radius: var(--radius-soft);
+    border: 1px solid var(--border);
+}

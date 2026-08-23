@@ -1,6 +1,8 @@
 // useState - like an empty template so changing it causes a re-render 
 // useEffect - render immediately with empty state, fetch, then re-render when data loads
-import { useState, useEffect } from 'react'
+
+import {Link} from 'react-router-dom'
+import {useState, useEffect } from 'react'
 
 
 // ../ means GO UP ONE FOLDER. this file is in pages/, client.js is in
@@ -110,7 +112,7 @@ function Exercises() {
 
     loadExercises()
 
-  //THE NEW IDEA. this array is NOT empty.
+  //this array is NOT empty.
       //react re-runs the effect whenever ANY of these values change.
       //so picking a muscle group refetches with that filter applied.
       //leaving the array out entirely would loop forever, because
@@ -225,10 +227,25 @@ function Exercises() {
       </div>
     )}
 
+
+
+
+
+
+
+
+
+
       <div className="exercise-grid">
         {exercises.map((ex) => {
           return (
-            <div className="exercise-card" key={ex.exercise_id}>
+            //a Link not a div now, so the whole card opens the
+              //detail page. backticks for the ${} substitution
+            <Link
+              to={`/exercises/${ex.exercise_id}`}
+              className="exercise-card"
+              key={ex.exercise_id}
+            >
 
               <h3>{ex.name}</h3>
 
@@ -247,7 +264,7 @@ function Exercises() {
                 </span>
                 )}
               </div>
-            </div>
+            </Link>
           )
         })}
       </div>

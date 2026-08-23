@@ -1,0 +1,200 @@
+.generate-page {
+    max-width: 850px;
+    margin: 0 auto;
+    padding: var(--space-xl) var(--space-md);
+}
+
+
+.generate-page h1 {
+    color: var(--accent);
+    margin-bottom: var(--space-xs);
+}
+
+
+.generate-intro {
+    color: var(--text-muted);
+    margin: 0 0 var(--space-xl) 0;
+}
+
+
+/*the stack of questions*/
+.questions {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-lg);
+}
+
+
+.question {
+    padding: var(--space-lg);
+    background: var(--surface);
+    border-radius: var(--radius-soft);
+    border: 1px solid var(--border);
+}
+
+
+.question h3 {
+    font-size: 1.1rem;
+    margin-bottom: var(--space-md);
+}
+
+
+.question-hint {
+    color: var(--text-muted);
+    font-size: 0.85rem;
+
+    /*pulls it up closer to the heading above*/
+    margin: -8px 0 var(--space-md) 0;
+}
+
+
+/*the row of choice buttons*/
+.options {
+    display: flex;
+
+    /*wrap so 8 equipment options fall onto several lines instead of squashing*/
+    flex-wrap: wrap;
+    gap: var(--space-sm);
+}
+
+
+/*one unselected option*/
+.option {
+    padding: 10px 18px;
+    border-radius: var(--radius-soft);
+
+    background: var(--bg);
+    border: 2px solid var(--border);
+    color: var(--text);
+
+    /*buttons don't inherit the page font by default*/
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+    cursor: pointer;
+
+    /*capitalize so "muscle gain" shows as "Muscle Gain" w/o
+    changing the value sent to the backend*/
+    text-transform: capitalize;
+}
+
+
+.option:hover {
+    border-color: var(--accent);
+}
+
+
+/*the chosen one. gold fill so selection is obvious at a glance*/
+.option-selected {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: var(--royal-blue);
+    font-weight: 600;
+}
+
+
+/*the big generate button*/
+.generate-btn {
+    width: 100%;
+    text-align: center;
+    margin-top: var(--space-xl);
+}
+
+
+/*the preview, only visible after generating*/
+.preview {
+    margin-top: var(--space-xl);
+    padding-top: var(--space-xl);
+
+    /*a line separating the form above from the result below*/
+    border-top: 1px solid var(--border);
+}
+
+
+.preview h2 {
+    color: var(--accent);
+    margin-bottom: var(--space-lg);
+}
+
+
+/*the LLM's explanation. this is the "reason" in repping with reason
+so it gets a gold edge cause its importanttt*/
+.explanation {
+    padding: var(--space-lg);
+    margin-bottom: var(--space-lg);
+
+    background: var(--surface);
+    border-radius: var(--radius-soft);
+
+    /*a thick left border only, a common way to mark a callout*/
+    border-left: 4px solid var(--accent);
+}
+
+
+.explanation h3 {
+    font-size: 1rem;
+    color: var(--accent);
+    margin-bottom: var(--space-sm);
+}
+
+
+.explanation p {
+    margin: 0;
+    font-size: 0.95rem;
+
+    /*keeps any line breaks the model wrote*/
+    white-space: pre-line;
+}
+
+
+/*one day of the routine*/
+.day-card {
+    padding: var(--space-lg);
+    margin-bottom: var(--space-md);
+
+    background: var(--surface);
+    border-radius: var(--radius-soft);
+    border: 1px solid var(--border);
+}
+
+
+.day-card h3 {
+    color: var(--accent);
+    margin-bottom: var(--space-md);
+}
+
+
+.day-exercises {
+    /*strips the bullets and indent browsers add to lists*/
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+
+.day-exercises li {
+    display: flex;
+
+    /*name on the left, sets and reps pushed right*/
+    justify-content: space-between;
+    align-items: baseline;
+    gap: var(--space-md);
+
+    padding: var(--space-sm) 0;
+
+    /*a faint line between exercises*/
+    border-bottom: 1px solid var(--border);
+}
+
+
+/*:last-child = the final item. removes the line under the last exercise
+so the list doesn't end with a stray border*/
+.day-exercises li:last-child {
+    border-bottom: none;
+}
+
+
+.save-btn {
+    width: 100%;
+    text-align: center;
+    margin-top: var(--space-lg);
+}

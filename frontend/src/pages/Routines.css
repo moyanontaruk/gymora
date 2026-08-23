@@ -1,0 +1,165 @@
+.routines-page {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: var(--space-xl) var(--space-md);
+}
+
+
+.routines-page h1 {
+    color: var(--accent);
+    margin-bottom: var(--space-lg);
+}
+
+
+/*the Generate a Routine button at the top*/
+.routines-page > .btn {
+    margin-bottom: var(--space-xl);
+}
+
+
+/*the stack of routine cards*/
+.routine-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+}
+
+
+.routine-card {
+    display: flex;
+
+    /*details on the left, buttons pushed to the right*/
+    justify-content: space-between;
+    align-items: center;
+
+    /*wrap so the buttons drop below the details on a phone
+        instead of squashing*/
+    flex-wrap: wrap;
+    gap: var(--space-md);
+
+    padding: var(--space-lg);
+    background: var(--surface);
+    border-radius: var(--radius-soft);
+    border: 1px solid var(--border);
+}
+
+
+.routine-card:hover {
+    border-color: var(--accent);
+}
+
+
+/*the left hand side: name, tags, date*/
+.routine-main {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+
+    /*grow to fill the space, but wrap below 240px*/
+    flex: 1 1 240px;
+}
+
+
+.routine-name {
+    font-family: var(--font-heading);
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--accent);
+}
+
+
+/*the row of small labels*/
+.routine-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-xs);
+}
+
+
+/*.tag is also defined in Exercises.css. same look, so this could
+    move to index.css later. noting the duplication rather than
+    leaving it silent*/
+.routine-meta .tag {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 999px;
+
+    background: rgba(17, 34, 80, 0.6);
+    border: 1px solid var(--border);
+
+    font-size: 0.8rem;
+    color: var(--text-muted);
+
+    /*so "muscle gain" shows as "Muscle Gain"*/
+    text-transform: capitalize;
+}
+
+
+.routine-date {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    opacity: 0.7;
+}
+
+
+/*the right hand side: View and Delete*/
+.routine-actions {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+
+    /*stops the buttons being squashed when the row gets tight*/
+    flex-shrink: 0;
+}
+
+
+/*index.css already styles .btn, this just makes the View button
+    smaller than a full sized one, since it sits inside a card*/
+.routine-view {
+    padding: 8px 18px;
+    font-size: 0.9rem;
+    border-width: 2px;
+}
+
+
+/*deliberately not using .btn. delete should be quiet until you're
+    actually about to use it. same pattern as the row-remove button
+    on the log workout form*/
+.routine-delete {
+    padding: 8px 16px;
+    border-radius: var(--radius-soft);
+
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--text-muted);
+
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+    cursor: pointer;
+}
+
+
+.routine-delete:hover {
+    border-color: var(--danger);
+    color: var(--danger);
+}
+
+
+/*shown when nothing has been saved yet.
+    also in Exercises.css and Workouts.css, so this is the third copy.
+    worth moving to index.css if there's time*/
+.empty-state {
+    padding: var(--space-xl);
+    text-align: center;
+    color: var(--text-muted);
+
+    background: var(--surface);
+    border-radius: var(--radius-soft);
+    border: 1px solid var(--border);
+}
+
+
+.empty-hint {
+    font-size: 0.9rem;
+    opacity: 0.7;
+}

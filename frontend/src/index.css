@@ -48,9 +48,8 @@
   --space-lg: 24px;
   --space-xl: 40px;
 
-/*corners
-fun little thng from mdn.org*/
-  --radius: 50% 20% / 10% 40%;;
+/*corners*/
+  --radius: 9999px;
   --radius-lg: 50% 20% / 10% 40%;;
 
 

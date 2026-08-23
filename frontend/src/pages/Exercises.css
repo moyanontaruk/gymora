@@ -32,31 +32,40 @@
   gap: var(--space-md);
 }
 
-
 .exercise-card {
-  background: var(--surface);
-  padding: var(--space-lg);
+    background: var(--surface);
+    padding: var(--space-lg);
 
-  /* radius-soft here, not the blob. cards holding several small
-     tags look cluttered with heavily curved corners */
-  border-radius: var(--radius-soft);
-  border: 1px solid var(--border);
+    /*radius-soft here, not the blob. cards holding several small
+    tags look cluttered with heavily curved corners*/
+    border-radius: var(--radius-soft);
+    border: 1px solid var(--border);
 
-  /* flex + column stacks the children vertically instead of in a row.
-     needed so the tags can sit at the bottom of every card even
-     when the names are different lengths */
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-sm);
+    /*flex + column stacks the children vertically instead of in a row.
+    needed so the tags can sit at the bottom of every card even
+    when the names are different lengths*/
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+
+    /*these three are needed now the card is a <Link>.
+    inherit stops the text turning gold, and none stops
+    the underline*/
+    color: inherit;
+    text-decoration: none;
 }
 
 
-.exercise-card h3 {
-  font-size: 1.1rem;
-  color: var(--text);
+/*shows the card is clickable*/
+.exercise-card:hover {
+    border-color: var(--accent);
+    text-decoration: none;
+}
 
-  /* stops a long exercise name being squashed */
-  line-height: 1.3;
+
+/*underline just the name on hover, not the tags*/
+.exercise-card:hover h3 {
+    text-decoration: underline;
 }
 
 

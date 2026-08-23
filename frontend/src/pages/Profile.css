@@ -1,0 +1,214 @@
+.profile-page {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: var(--space-xl) var(--space-md);
+}
+
+
+.profile-page h1 {
+    color: var(--accent);
+    margin-bottom: var(--space-lg);
+}
+
+
+/*the name, email and log out button row*/
+.profile-header {
+    display: flex;
+
+    /*details left, button right*/
+    justify-content: space-between;
+    align-items: center;
+
+    /*wrap so the button drops below on a phone*/
+    flex-wrap: wrap;
+    gap: var(--space-md);
+
+    padding: var(--space-lg);
+    margin-bottom: var(--space-xl);
+
+    background: var(--surface);
+    border-radius: var(--radius-soft);
+    border: 1px solid var(--border);
+}
+
+
+.profile-header h2 {
+    color: var(--accent);
+    font-size: 1.5rem;
+    margin-bottom: var(--space-xs);
+}
+
+
+.profile-email {
+    margin: 0;
+    font-size: 0.95rem;
+    color: var(--text-muted);
+}
+
+
+.profile-since {
+    margin: var(--space-xs) 0 0 0;
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    opacity: 0.7;
+}
+
+
+/*the four headline numbers*/
+.stat-grid {
+    display: grid;
+
+    /*4 across on a laptop, 2 on a tablet, 1 on a phone*/
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: var(--space-md);
+    margin-bottom: var(--space-xl);
+}
+
+
+.stat-card {
+    /*flex column so the number sits above its label*/
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    padding: var(--space-lg);
+    text-align: center;
+
+    background: var(--surface);
+    border-radius: var(--radius-soft);
+    border: 1px solid var(--border);
+}
+
+
+.stat-number {
+    font-family: var(--font-heading);
+    font-size: 2.2rem;
+    font-weight: 700;
+    color: var(--accent);
+
+    /*tight, b/c a big serif number looks gappy at normal spacing*/
+    line-height: 1.1;
+}
+
+
+/*the "last trained" card holds a word not a number, so it needs
+    to be smaller or a long muscle group name overflows*/
+.stat-text {
+    font-size: 1.3rem;
+    text-transform: capitalize;
+}
+
+
+.stat-label {
+    margin-top: var(--space-xs);
+    font-size: 0.85rem;
+    color: var(--text-muted);
+}
+
+
+/*each breakdown section below the numbers*/
+.profile-section {
+    padding: var(--space-lg);
+    margin-bottom: var(--space-lg);
+
+    background: var(--surface);
+    border-radius: var(--radius-soft);
+    border: 1px solid var(--border);
+}
+
+
+.profile-section h2 {
+    color: var(--accent);
+    font-size: 1.3rem;
+    margin-bottom: var(--space-lg);
+}
+
+
+/*the muscle group bar chart*/
+.bars {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+}
+
+
+.bar-row {
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+}
+
+
+/*a fixed width so every bar starts at the same point, no matter
+    how long the muscle group name is*/
+.bar-label {
+    flex: 0 0 100px;
+    font-size: 0.9rem;
+    text-transform: capitalize;
+}
+
+
+/*the empty track the bar sits in*/
+.bar-track {
+    /*flex 1 = take all the remaining space*/
+    flex: 1;
+
+    height: 12px;
+    border-radius: 999px;
+
+    /*the page background, so the track reads as a groove*/
+    background: var(--bg);
+
+    /*stops the fill's square corners poking out of the rounded track*/
+    overflow: hidden;
+}
+
+
+/*the gold part. its WIDTH is set inline in the jsx, b/c it's
+    calculated from the data*/
+.bar-fill {
+    height: 100%;
+    background: var(--accent);
+    border-radius: 999px;
+}
+
+
+/*the number at the end of each bar*/
+.bar-count {
+    flex: 0 0 30px;
+    text-align: right;
+    font-size: 0.9rem;
+    color: var(--text-muted);
+}
+
+
+/*the most performed exercises list*/
+.exercise-stats {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+
+.exercise-stats li {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: var(--space-sm);
+
+    padding: var(--space-sm) 0;
+    border-bottom: 1px solid var(--border);
+}
+
+
+.exercise-stats li:last-child {
+    border-bottom: none;
+}
+
+
+/*the "best 40kg" bit after the count*/
+.best-weight {
+    margin-left: var(--space-sm);
+    color: var(--accent);
+}

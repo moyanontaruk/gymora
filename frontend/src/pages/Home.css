@@ -4,35 +4,37 @@
   using the --space-xl I defined in index.css */
   padding: var(--space-xl);
 
-  /*1100px stops text stretching the full width of a wide monitor, 
+  /*1100px stops text stretching the full width of a wide monitor,
   that would be hard to read. */
   max-width: 1100px;
 
   /* auto = tells browser to split the leftover space
   with 0 top/bottom and auto left/right, this centres the block */
   margin: 0 auto;
+
+  /* the logo/tagline/buttons block is centered; .cards overrides
+     this back to left so card copy stays easy to read */
+  text-align: center;
 }
 
 
-.hero-title {
-  /* clamp() -- headline scales w/ the window (with a floor & ceiling)
+.hero-logo {
+  /* clamp() -- scales w/ the window (with a floor & ceiling)
         so it never gets too small or large.
-        takes 3 values: minimum, preferred, maximum.
-  vw = 1% of the window WIDTH, so 5vw grows with the window.
-  result: never smaller than 2.5rem, never bigger than 4.5rem.
-    ->responsive text, part of NFR1 */
-  font-size: clamp(2.5rem, 5vw, 4.5rem);
-
-  color: var(--accent);
-  line-height: 1;
+  vw = 1% of the window WIDTH, so 28vw grows with the window.*/
+  width: clamp(220px, 28vw, 420px);
+  height: auto;
+  display: block;
+  margin: 0 auto;
 }
 
 .hero-text {
   /*4 values would be top/right/bottom/left. 2 values = vertical/horizontal.
   pushing the paragraph away from the buttons below
   how closely the title/text are
-  0 top and --space-md (16px) bottom*/
-  margin:var(--space-md) 0;
+  0 top and --space-md (16px) bottom.
+  auto on the sides re-centers it now that .hero-text has a max-width */
+  margin: var(--space-md) auto;
 
   font-size: 1.3rem;
   color: var(--text-muted);
@@ -42,6 +44,9 @@
 .hero-buttons {
   /* flex = REQUIRED keyword. children sit side by side in a row */
   display: flex;
+
+  /* centers the button pair under the now-centered logo/text above */
+  justify-content: center;
 
   /* gap = space BETWEEN children, not around the outside */
   gap: var(--space-md);
@@ -65,13 +70,32 @@
   fr = "fraction of the free space".*/
   grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
   gap: var(--space-md);
+
+  /* .hero centers everything above; card copy reads better left-aligned */
+  text-align: left;
+}
+
+
+.card-icon {
+  width: 40px;
+  height: 40px;
+  margin-bottom: var(--space-sm);
+}
+
+
+.card-link {
+  display: inline-block;
+  margin-top: var(--space-sm);
+  color: var(--accent);
+  font-weight: 600;
+  font-size: 0.9rem;
 }
 
 
 .card {
   background: var(--surface);
   padding: var(--space-lg);
-  border-radius: var(--radius-lg);
+  border-radius: 60px;
   border: 5px solid var(--border);
 
   color:inherit;
