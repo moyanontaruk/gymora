@@ -53,3 +53,6 @@ urllib3==2.7.0
 uvicorn==0.51.0
 watchfiles==1.2.0
 websockets==16.1
+
+# Added by AI (Claude, Anthropic) to support the generated pytest test suite in backend/tests/
+pytest==8.3.4
