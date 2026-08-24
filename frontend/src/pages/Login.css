@@ -80,3 +80,8 @@
   font-size: 0.95rem;
   color: var(--text-muted);
 }
+
+.auth-footer a {
+  display: block;
+  margin-top: var(--space-xs);
+}
