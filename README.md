@@ -1,93 +1,225 @@
 # Gymora
 
-A RAG-enhanced workout tracking and exercise discovery platform.
+**Repping with Reason — A RAG-Enhanced Workout Tracking and Exercise Discovery Platform**
 
-## Getting started
+MSc Information Technology project, University of Glasgow, 2026.
 
-To make it easy for you to get started with GitLab, here's a list of recommended next steps.
+Gymora is a web application for people who are new to the gym. It combines exercise
+discovery, workout logging and routine generation with an assistant that answers
+questions using only the workouts a user has actually logged — so every answer can
+be traced back to real data rather than guesswork.
 
-Already a pro? Just edit this README.md and make it your own. Want to make it easy? [Use the template at the bottom](#editing-this-readme)!
+---
 
-## Add your files
+## Live demo
 
-- [ ] [Create](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#create-a-file) or [upload](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#upload-a-file) files
-- [ ] [Add files using the command line](https://docs.gitlab.com/topics/git/add_files/#add-files-to-a-git-repository) or push an existing Git repository with the following command:
+| | |
+|---|---|
+| Frontend | https://gymora-train.netlify.app |
+| API docs | https://gymora-3qgg.onrender.com/docs |
+
+> The backend runs on a free hosting tier and sleeps after inactivity. The first
+> request after an idle period may take up to a minute to respond.
+
+---
+
+## Features
+
+**Exercise library** — browse and filter over 500 exercises by muscle group,
+equipment, difficulty and free-text search, with detail pages showing muscle
+groups, equipment, description and imagery.
+
+**Workout logging** — record sessions with date, title, notes and any number of
+exercises with sets, reps and weight. Full history view, scoped to the logged-in user.
+
+**Routine generation** — answer five questions about goal, experience level,
+equipment, days per week and session length. A rule-based generator selects
+exercises and splits them across training days; an LLM then writes a plain-English
+explanation of why the routine looks the way it does.
+
+**Assistant** — ask questions about your own training. The assistant retrieves the
+user's workout history from the database, sends it as context alongside the
+question, and answers only from that data. Where the data cannot answer a question,
+it says so explicitly rather than inventing a response.
+
+**Accounts** — registration and login with JWT authentication, bcrypt-hashed
+passwords, and per-user data isolation enforced at the API layer.
+
+---
+
+## Tech stack
+
+**Backend**
+- FastAPI (Python)
+- SQLAlchemy ORM with Alembic migrations
+- PostgreSQL
+- JWT authentication (PyJWT) with bcrypt password hashing
+- Groq API for LLM features
+
+**Frontend**
+- React with Vite
+- React Router
+- Plain CSS with custom properties (no UI framework)
+
+**Deployment**
+- Backend and database: Render
+- Frontend: Netlify
+
+---
+
+## Project structure
 
 ```
-cd existing_repo
-git remote add origin https://stgit.dcs.gla.ac.uk/msc-project-for-information-technology/2025/it-project-3162543o/gymora.git
-git branch -M main
-git push -uf origin main
+gymora/
+├── backend/
+│   ├── app/
+│   │   ├── core/           auth dependencies, JWT and password hashing
+│   │   ├── models/         SQLAlchemy models (11 tables)
+│   │   ├── routers/        API endpoints
+│   │   ├── schemas/        Pydantic request/response schemas
+│   │   ├── services/       LLM client, RAG retrieval, routine generator
+│   │   ├── config.py       settings loaded from .env
+│   │   ├── database.py     engine, session factory, Base
+│   │   └── main.py         app setup, CORS, router registration
+│   ├── migrations/         Alembic migration history
+│   ├── seed.py             manual seed data
+│   ├── import_wger.py      wger API import and difficulty classification
+│   └── requirements.txt
+└── frontend/
+    └── src/
+        ├── api/            API client
+        ├── components/     shared components (nav bar, route guard)
+        ├── context/        authentication context
+        └── pages/          one component per screen, each with its own CSS
 ```
 
-## Integrate with your tools
+---
 
-- [ ] [Set up project integrations](https://stgit.dcs.gla.ac.uk/msc-project-for-information-technology/2025/it-project-3162543o/gymora/-/settings/integrations)
+## Running locally
 
-## Collaborate with your team
+### Prerequisites
 
-- [ ] [Invite team members and collaborators](https://docs.gitlab.com/ee/user/project/members/)
-- [ ] [Create a new merge request](https://docs.gitlab.com/ee/user/project/merge_requests/creating_merge_requests.html)
-- [ ] [Automatically close issues from merge requests](https://docs.gitlab.com/ee/user/project/issues/managing_issues.html#closing-issues-automatically)
-- [ ] [Enable merge request approvals](https://docs.gitlab.com/ee/user/project/merge_requests/approvals/)
-- [ ] [Set auto-merge](https://docs.gitlab.com/user/project/merge_requests/auto_merge/)
+- Python 3.13
+- Node.js
+- PostgreSQL
+- A Groq API key (free tier: https://console.groq.com)
 
-## Test and Deploy
+### Backend
 
-Use the built-in continuous integration in GitLab.
+```bash
+cd backend
+python -m venv .venv
+.venv\Scripts\activate          # Windows
+pip install -r requirements.txt
+```
 
-- [ ] [Get started with GitLab CI/CD](https://docs.gitlab.com/ee/ci/quick_start/)
-- [ ] [Analyze your code for known vulnerabilities with Static Application Security Testing (SAST)](https://docs.gitlab.com/ee/user/application_security/sast/)
-- [ ] [Deploy to Kubernetes, Amazon EC2, or Amazon ECS using Auto Deploy](https://docs.gitlab.com/ee/topics/autodevops/requirements.html)
-- [ ] [Use pull-based deployments for improved Kubernetes management](https://docs.gitlab.com/ee/user/clusters/agent/)
-- [ ] [Set up protected environments](https://docs.gitlab.com/ee/ci/environments/protected_environments.html)
+Create `backend/.env`:
 
-***
+```
+DB_USER=postgres
+DB_PASSWORD=your_password
+DB_HOST=localhost
+DB_PORT=5432
+DB_NAME=gymora
 
-# Editing this README
+JWT_SECRET_KEY=generate_with_secrets_token_hex_32
+JWT_ALGORITHM=HS256
+JWT_ACCESS_TOKEN_EXPIRE_MINUTES=30
 
-When you're ready to make this README your own, just edit this file and use the handy template below (or feel free to structure it however you want - this is just a starting point!). Thanks to [makeareadme.com](https://www.makeareadme.com/) for this template.
+GROQ_API_KEY=your_groq_key
+GROQ_MODEL=openai/gpt-oss-120b
+```
 
-## Suggestions for a good README
+Generate a JWT secret with:
 
-Every project is different, so consider which of these sections apply to yours. The sections used in the template are suggestions for most open source projects. Also keep in mind that while a README can be too long and detailed, too long is better than too short. If you think your README is too long, consider utilizing another form of documentation rather than cutting out information.
+```bash
+python -c "import secrets; print(secrets.token_hex(32))"
+```
 
-## Name
-Choose a self-explaining name for your project.
+Create the database in PostgreSQL, then:
 
-## Description
-Let people know what your project can do specifically. Provide context and add a link to any reference visitors might be unfamiliar with. A list of Features or a Background subsection can also be added here. If there are alternatives to your project, this is a good place to list differentiating factors.
+```bash
+alembic upgrade head
+python seed.py
+python import_wger.py
+uvicorn app.main:app --reload
+```
 
-## Badges
-On some READMEs, you may see small images that convey metadata, such as whether or not all the tests are passing for the project. You can use Shields to add some to your README. Many services also have instructions for adding a badge.
+The API runs at `http://localhost:8000`, with interactive documentation at `/docs`.
 
-## Visuals
-Depending on what you are making, it can be a good idea to include screenshots or even a video (you'll frequently see GIFs rather than actual videos). Tools like ttygif can help, but check out Asciinema for a more sophisticated method.
+> `import_wger.py` classifies exercise difficulty using the LLM, one call per
+> exercise. On Groq's free tier this is rate-limited and takes some time. The
+> script paces its requests and retries on rate-limit errors, and is safe to
+> re-run — already-imported exercises are skipped.
 
-## Installation
-Within a particular ecosystem, there may be a common way of installing things, such as using Yarn, NuGet, or Homebrew. However, consider the possibility that whoever is reading your README is a novice and would like more guidance. Listing specific steps helps remove ambiguity and gets people to using your project as quickly as possible. If it only runs in a specific context like a particular programming language version or operating system or has dependencies that have to be installed manually, also add a Requirements subsection.
+### Frontend
 
-## Usage
-Use examples liberally, and show the expected output if you can. It's helpful to have inline the smallest example of usage that you can demonstrate, while providing links to more sophisticated examples if they are too long to reasonably include in the README.
+```bash
+cd frontend
+npm install
+npm run dev
+```
 
-## Support
-Tell people where they can go to for help. It can be any combination of an issue tracker, a chat room, an email address, etc.
+The app runs at `http://localhost:5173`.
 
-## Roadmap
-If you have ideas for releases in the future, it is a good idea to list them in the README.
+---
 
-## Contributing
-State if you are open to contributions and what your requirements are for accepting them.
+## Data sources
 
-For people who want to make changes to your project, it's helpful to have some documentation on how to get started. Perhaps there is a script that they should run or some environment variables that they need to set. Make these steps explicit. These instructions could also be useful to your future self.
+Exercise data is imported from [wger](https://wger.de), an open-source fitness
+database, and is licensed under
+[CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/).
 
-You can also document commands to lint the code or run tests. These steps help to ensure high code quality and reduce the likelihood that the changes inadvertently break something. Having instructions for running tests is especially helpful if it requires external setup, such as starting a Selenium server for testing in a browser.
+wger's anatomical muscle names (for example *Rectus abdominis*) are mapped during
+import onto Gymora's ten plain-English muscle groups, so users are not shown
+clinical terminology. wger does not provide difficulty ratings, so these are
+classified during import using an LLM.
 
-## Authors and acknowledgment
-Show your appreciation to those who have contributed to the project.
+---
 
-## License
-For open source projects, say how it is licensed.
+## How the assistant works
 
-## Project status
-If you have run out of energy or time for your project, put a note at the top of the README saying that development has slowed down or stopped completely. Someone may choose to fork your project or volunteer to step in as a maintainer or owner, allowing your project to keep going. You can also make an explicit request for maintainers.
+The assistant uses retrieval-augmented generation with **structured database
+retrieval** rather than vector search.
+
+1. The user asks a question.
+2. The backend queries that user's own rows: recent workouts, muscle group
+   frequency, weight progression, and a sample of the exercise library.
+3. Those results are formatted as labelled text blocks.
+4. The blocks and the question are sent to the LLM, with system instructions
+   requiring it to answer only from the supplied data.
+5. Where the data cannot answer the question, the model emits a marker phrase,
+   which the backend detects and records as an insufficient-information flag.
+6. The question, answer and the exact context used are stored, so any answer can
+   be audited afterwards.
+
+Vector search was considered and rejected: the relevant subset of data is defined
+by user identity and date range, which SQL selects exactly, and exact retrieval
+makes the grounding requirement verifiable in a way that similarity matching
+would not.
+
+---
+
+## Known limitations
+
+- **Third-party rate limits.** The assistant depends on a free-tier LLM provider
+  limited to 30 requests per minute and 8,000 tokens per minute. The retrieval
+  context is capped to fit within this ceiling, and bulk difficulty classification
+  during import requires pacing and retry logic.
+- **Free-tier data handling.** Prompts sent to the provider's free tier may be
+  retained for model improvement. Only training data is transmitted; no account
+  identifiers are included.
+- **Routine parameters.** Sets, reps, rest periods and training splits follow
+  conventional gym practice. They are not clinically validated.
+- **Client-side validation.** Password length is enforced in the browser only;
+  the API does not currently impose a minimum.
+- **Sleeping backend.** The free hosting tier suspends the service after
+  inactivity, delaying the first request.
+
+---
+
+## Author
+
+Maggie — MSc Information Technology, University of Glasgow.
+
+README.md file was AI generated 
