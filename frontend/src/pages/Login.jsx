@@ -116,6 +116,7 @@ function Login() {
 
                 <p className="auth-footer">
                     Don't have an account? 
+                    <br/>
                         <Link to="/register">
                          Create one
                         </Link>
