@@ -34,11 +34,9 @@ exercises with sets, reps and weight. Full history view, scoped to the logged-in
 
 **Routine generation** — answer five questions about goal, experience level,
 equipment, days per week and session length. A rule-based generator selects
-exercises and splits them across training days; an LLM then writes a plain-English
-explanation of why the routine looks the way it does.
+exercises and splits them across training days; an LLM then writes a plain-English explanation of why the routine looks the way it does.
 
-**Assistant** — ask questions about your own training. The assistant retrieves the
-user's workout history from the database, sends it as context alongside the
+**Assistant** — ask questions about your own training. The assistant retrieves the user's workout history from the database, sends it as context alongside the
 question, and answers only from that data. Where the data cannot answer a question,
 it says so explicitly rather than inventing a response.
 
@@ -82,13 +80,14 @@ gymora/
 │   │   ├── database.py     engine, session factory, Base
 │   │   └── main.py         app setup, CORS, router registration
 │   ├── migrations/         Alembic migration history
+│   ├── tests/              pytest suite (routes, RAG retrieval, routine generator, security)
 │   ├── seed.py             manual seed data
 │   ├── import_wger.py      wger API import and difficulty classification
 │   └── requirements.txt
 └── frontend/
     └── src/
         ├── api/            API client
-        ├── components/     shared components (nav bar, route guard)
+        ├── components/     shared components (nav bar, route guard, background effects)
         ├── context/        authentication context
         └── pages/          one component per screen, each with its own CSS
 ```
@@ -161,6 +160,26 @@ npm run dev
 ```
 
 The app runs at `http://localhost:5173`.
+
+---
+
+## Testing
+
+**Backend** (`backend/tests/`, pytest): route tests for auth, workout logs, routines and the
+assistant, plus unit tests for the routine generator's rule logic, the Groq client, and the
+security helpers (hashing, JWT).
+
+```bash
+cd backend
+pytest
+```
+
+**Frontend** (Vitest + Testing Library): the API client, `ProtectedRoute`, and the login page.
+
+```bash
+cd frontend
+npm test
+```
 
 ---
 

@@ -76,7 +76,7 @@ function Exercises() {
           //or a name with a space doesn't break the url
         const params = new URLSearchParams()
 
-        params.append('limit', '500')
+        params.append('limit', '250')
 
         //only add a filter if the user actually chose one.
           //sending muscle_group='' would match nothing
