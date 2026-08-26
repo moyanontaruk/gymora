@@ -94,7 +94,7 @@ EXERCISES_PER_SESSION = {
 
 def exercises_per_day(session_length_minutes: int) -> int:
 
-    #find the closest option that isn't longer than what they picked
+    #find the closest option that isn't longer than what they picked..
     best = 4
 
     for length in sorted(EXERCISES_PER_SESSION):
@@ -106,10 +106,10 @@ def exercises_per_day(session_length_minutes: int) -> int:
 
 def get_sets_and_reps(goal: str) -> dict:
 
-    #.lower() so "Muscle Gain" and "muscle gain" both match
+    #.lower() so "Muscle Gain" and "muscle gain" both match..
     key = goal.lower().strip()
 
-    #.get() with a default, so an unexpected goal doesn't crash
+    #.get() with a default, so an unexpected goal doesn't crash..
     return SETS_AND_REPS.get(key, DEFAULT_SETS_AND_REPS)
 
 
@@ -122,12 +122,12 @@ def find_exercises_for_muscle(
     already_used: set,
 ) -> list:
 
-    #builds the candidate list for one muscle group on one day
+    #builds the candidate list for one muscle group on one day..
 
     #counting how many muscle groups each exercise is tagged with.
-        #wger data has some junk entries tagged with 7 or 8 muscles,
+        #wger data has some junk entries tagged with 7 or 8 muscles..
         #which match every query and crowd out the real ones.
-        #a subquery is a query used INSIDE another query
+        #a subquery is a query used INSIDE another query..
     muscle_count = (
         select(
             ExerciseMuscleGroup.exercise_id,
@@ -190,7 +190,7 @@ def find_exercises_for_muscle(
 
     #if primary-only found nothing, fall back to any link.
         #some muscle groups may have no primary tagged exercises at all,
-        #and an empty day is worse than an imperfect one
+        #and an empty day is worse than an imperfect one..
     if not candidates:
         fallback = (
             select(Exercise)

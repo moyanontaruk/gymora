@@ -1,4 +1,12 @@
-// AI assisted 
+/*AI use mix with my own implementation. 
+    The form state, the equipment toggle logic, the two-step "generate a preview, 
+    then save" flow, the grouping of the returned exercises into days, 
+    and all of the JSX and rendering are my own work
+
+I used AI to talk through how to structure the generate-then-save state pattern
+    (preview held in state,not presisted until "Save")
+    
+    I reviewed and tested the result against the live routine endpoint*/
 
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
