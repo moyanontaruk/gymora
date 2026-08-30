@@ -1,10 +1,12 @@
 import { useState, useEffect} from 'react'
 
 //apiGetAuth, not apiGet, b/c this endpoint needs the token
-import { apiGetAuth } from '../api/client.js'
+import { apiGetAuth, deleteWorkout } from '../api/client.js'
 
 import './Workouts.css'
 import {Link} from 'react-router-dom'
+
+
 
 //a small helper thats out the component b/c it doesn't need state
     //turns "2026-08-09" into "9 August 2026"
@@ -120,6 +122,16 @@ function Workouts() {
                             <span className="workout-date">
                                 {formatDate(workout.workout_date)}
                             </span>
+
+
+                            {/*delete calls the handler with this card's id*/}
+                            <button
+                                className="btn btn-danger"
+                                onClick={() => handleDelete(workout.workout_log_id)}
+                            >
+                                delete
+                            </button>
+
                         </div>
 
                         {/* adding && so will only show if user has added "notes" */}
@@ -164,6 +176,46 @@ function Workouts() {
             </div>
         </section>
     )
+
+
+
+
+
+
+
+
+
+
+        //delete one workout, then drop it from the list so the page updates
+    async function handleDelete(workoutId) {
+        //ask first so a mis-click doesn't wipe a log
+        const sure = window.confirm('Delete this workout? This cannot be undone.')
+        if (!sure) return
+
+        try {
+            await deleteWorkout(workoutId)
+            //keep every workout EXCEPT the one just deleted
+            setWorkouts((current) =>
+                current.filter((w) => w.workout_log_id !== workoutId)
+            )
+        }
+        catch (err) {
+            setError(err.message)
+        }
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
 
 export default Workouts

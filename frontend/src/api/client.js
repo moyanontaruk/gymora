@@ -320,3 +320,11 @@ export async function deleteRoutine(routineId) {
 export async function getProfileStats() {
   return apiGetAuth('/stats/profile')
 }
+
+
+
+//deletes one workout log. reuses apiDeleteAuth, which already handles
+    //the token and the empty 204 response
+export async function deleteWorkout(workoutId) {
+  return apiDeleteAuth(`/workouts/${workoutId}`)
+}
